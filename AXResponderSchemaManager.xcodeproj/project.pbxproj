@@ -7,12 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DC9A38951DACA0EF003125FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9A38941DACA0EF003125FF /* main.m */; };
-		DC9A38981DACA0EF003125FF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9A38971DACA0EF003125FF /* AppDelegate.m */; };
-		DC9A389B1DACA0EF003125FF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9A389A1DACA0EF003125FF /* ViewController.m */; };
-		DC9A389E1DACA0EF003125FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC9A389C1DACA0EF003125FF /* Main.storyboard */; };
-		DC9A38A01DACA0EF003125FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC9A389F1DACA0EF003125FF /* Assets.xcassets */; };
-		DC9A38A31DACA0EF003125FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC9A38A11DACA0EF003125FF /* LaunchScreen.storyboard */; };
+		DC29A98F1DACF7050073E8AF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A9751DACF7050073E8AF /* AppDelegate.m */; };
+		DC29A9901DACF7050073E8AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC29A9761DACF7050073E8AF /* Assets.xcassets */; };
+		DC29A9911DACF7050073E8AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC29A9771DACF7050073E8AF /* LaunchScreen.storyboard */; };
+		DC29A9921DACF7050073E8AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC29A9791DACF7050073E8AF /* Main.storyboard */; };
+		DC29A9931DACF7050073E8AF /* AXResponderSchemaComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A97D1DACF7050073E8AF /* AXResponderSchemaComponents.m */; };
+		DC29A9941DACF7050073E8AF /* AXResponderSchemaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A9801DACF7050073E8AF /* AXResponderSchemaManager.m */; };
+		DC29A9951DACF7050073E8AF /* UIViewController+Schema.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A9821DACF7050073E8AF /* UIViewController+Schema.m */; };
+		DC29A9961DACF7050073E8AF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC29A9831DACF7050073E8AF /* Info.plist */; };
+		DC29A9971DACF7050073E8AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A9841DACF7050073E8AF /* main.m */; };
+		DC29A9981DACF7050073E8AF /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A9861DACF7050073E8AF /* TabBarViewController.m */; };
+		DC29A9991DACF7050073E8AF /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A9881DACF7050073E8AF /* TableViewController.m */; };
+		DC29A99A1DACF7050073E8AF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A98A1DACF7050073E8AF /* ViewController.m */; };
+		DC29A99B1DACF7050073E8AF /* ViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A98C1DACF7050073E8AF /* ViewController1.m */; };
+		DC29A99C1DACF7050073E8AF /* ViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A98E1DACF7050073E8AF /* ViewController2.m */; };
 		DC9A38AE1DACA0F0003125FF /* AXViewControllerShemaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9A38AD1DACA0F0003125FF /* AXViewControllerShemaTests.m */; };
 		DC9A38B91DACA0F0003125FF /* AXViewControllerShemaUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9A38B81DACA0F0003125FF /* AXViewControllerShemaUITests.m */; };
 /* End PBXBuildFile section */
@@ -35,20 +43,35 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DC9A38901DACA0EF003125FF /* AXViewControllerShema.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AXViewControllerShema.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC9A38941DACA0EF003125FF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		DC9A38961DACA0EF003125FF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		DC9A38971DACA0EF003125FF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		DC9A38991DACA0EF003125FF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		DC9A389A1DACA0EF003125FF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		DC9A389D1DACA0EF003125FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		DC9A389F1DACA0EF003125FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DC9A38A21DACA0EF003125FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		DC9A38A41DACA0EF003125FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DC9A38A91DACA0F0003125FF /* AXViewControllerShemaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AXViewControllerShemaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC29A9741DACF7050073E8AF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		DC29A9751DACF7050073E8AF /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DC29A9761DACF7050073E8AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DC29A9781DACF7050073E8AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DC29A97A1DACF7050073E8AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DC29A97C1DACF7050073E8AF /* AXResponderSchemaComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXResponderSchemaComponents.h; sourceTree = "<group>"; };
+		DC29A97D1DACF7050073E8AF /* AXResponderSchemaComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AXResponderSchemaComponents.m; sourceTree = "<group>"; };
+		DC29A97E1DACF7050073E8AF /* AXResponderSchemaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXResponderSchemaKit.h; sourceTree = "<group>"; };
+		DC29A97F1DACF7050073E8AF /* AXResponderSchemaManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXResponderSchemaManager.h; sourceTree = "<group>"; };
+		DC29A9801DACF7050073E8AF /* AXResponderSchemaManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AXResponderSchemaManager.m; sourceTree = "<group>"; };
+		DC29A9811DACF7050073E8AF /* UIViewController+Schema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Schema.h"; sourceTree = "<group>"; };
+		DC29A9821DACF7050073E8AF /* UIViewController+Schema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Schema.m"; sourceTree = "<group>"; };
+		DC29A9831DACF7050073E8AF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC29A9841DACF7050073E8AF /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DC29A9851DACF7050073E8AF /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
+		DC29A9861DACF7050073E8AF /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
+		DC29A9871DACF7050073E8AF /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		DC29A9881DACF7050073E8AF /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		DC29A9891DACF7050073E8AF /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		DC29A98A1DACF7050073E8AF /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		DC29A98B1DACF7050073E8AF /* ViewController1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController1.h; sourceTree = "<group>"; };
+		DC29A98C1DACF7050073E8AF /* ViewController1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController1.m; sourceTree = "<group>"; };
+		DC29A98D1DACF7050073E8AF /* ViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController2.h; sourceTree = "<group>"; };
+		DC29A98E1DACF7050073E8AF /* ViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController2.m; sourceTree = "<group>"; };
+		DC9A38901DACA0EF003125FF /* AXResponderSchemaManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AXResponderSchemaManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC9A38A91DACA0F0003125FF /* AXResponderSchemaManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AXResponderSchemaManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC9A38AD1DACA0F0003125FF /* AXViewControllerShemaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AXViewControllerShemaTests.m; sourceTree = "<group>"; };
 		DC9A38AF1DACA0F0003125FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DC9A38B41DACA0F0003125FF /* AXViewControllerShemaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AXViewControllerShemaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC9A38B41DACA0F0003125FF /* AXResponderSchemaManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AXResponderSchemaManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC9A38B81DACA0F0003125FF /* AXViewControllerShemaUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AXViewControllerShemaUITests.m; sourceTree = "<group>"; };
 		DC9A38BA1DACA0F0003125FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,10 +101,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DC29A9731DACF7050073E8AF /* AXResponderSchemaManager */ = {
+			isa = PBXGroup;
+			children = (
+				DC29A9741DACF7050073E8AF /* AppDelegate.h */,
+				DC29A9751DACF7050073E8AF /* AppDelegate.m */,
+				DC29A9761DACF7050073E8AF /* Assets.xcassets */,
+				DC29A97B1DACF7050073E8AF /* Classes */,
+				DC29A9771DACF7050073E8AF /* LaunchScreen.storyboard */,
+				DC29A9791DACF7050073E8AF /* Main.storyboard */,
+				DC29A9831DACF7050073E8AF /* Info.plist */,
+				DC29A9841DACF7050073E8AF /* main.m */,
+				DC29A9851DACF7050073E8AF /* TabBarViewController.h */,
+				DC29A9861DACF7050073E8AF /* TabBarViewController.m */,
+				DC29A9871DACF7050073E8AF /* TableViewController.h */,
+				DC29A9881DACF7050073E8AF /* TableViewController.m */,
+				DC29A9891DACF7050073E8AF /* ViewController.h */,
+				DC29A98A1DACF7050073E8AF /* ViewController.m */,
+				DC29A98B1DACF7050073E8AF /* ViewController1.h */,
+				DC29A98C1DACF7050073E8AF /* ViewController1.m */,
+				DC29A98D1DACF7050073E8AF /* ViewController2.h */,
+				DC29A98E1DACF7050073E8AF /* ViewController2.m */,
+			);
+			path = AXResponderSchemaManager;
+			sourceTree = "<group>";
+		};
+		DC29A97B1DACF7050073E8AF /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DC29A97C1DACF7050073E8AF /* AXResponderSchemaComponents.h */,
+				DC29A97D1DACF7050073E8AF /* AXResponderSchemaComponents.m */,
+				DC29A97E1DACF7050073E8AF /* AXResponderSchemaKit.h */,
+				DC29A97F1DACF7050073E8AF /* AXResponderSchemaManager.h */,
+				DC29A9801DACF7050073E8AF /* AXResponderSchemaManager.m */,
+				DC29A9811DACF7050073E8AF /* UIViewController+Schema.h */,
+				DC29A9821DACF7050073E8AF /* UIViewController+Schema.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		DC9A38871DACA0EF003125FF = {
 			isa = PBXGroup;
 			children = (
-				DC9A38921DACA0EF003125FF /* AXViewControllerShema */,
+				DC29A9731DACF7050073E8AF /* AXResponderSchemaManager */,
 				DC9A38AC1DACA0F0003125FF /* AXViewControllerShemaTests */,
 				DC9A38B71DACA0F0003125FF /* AXViewControllerShemaUITests */,
 				DC9A38911DACA0EF003125FF /* Products */,
@@ -91,35 +153,11 @@
 		DC9A38911DACA0EF003125FF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DC9A38901DACA0EF003125FF /* AXViewControllerShema.app */,
-				DC9A38A91DACA0F0003125FF /* AXViewControllerShemaTests.xctest */,
-				DC9A38B41DACA0F0003125FF /* AXViewControllerShemaUITests.xctest */,
+				DC9A38901DACA0EF003125FF /* AXResponderSchemaManager.app */,
+				DC9A38A91DACA0F0003125FF /* AXResponderSchemaManagerTests.xctest */,
+				DC9A38B41DACA0F0003125FF /* AXResponderSchemaManagerUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		DC9A38921DACA0EF003125FF /* AXViewControllerShema */ = {
-			isa = PBXGroup;
-			children = (
-				DC9A38961DACA0EF003125FF /* AppDelegate.h */,
-				DC9A38971DACA0EF003125FF /* AppDelegate.m */,
-				DC9A38991DACA0EF003125FF /* ViewController.h */,
-				DC9A389A1DACA0EF003125FF /* ViewController.m */,
-				DC9A389C1DACA0EF003125FF /* Main.storyboard */,
-				DC9A389F1DACA0EF003125FF /* Assets.xcassets */,
-				DC9A38A11DACA0EF003125FF /* LaunchScreen.storyboard */,
-				DC9A38A41DACA0EF003125FF /* Info.plist */,
-				DC9A38931DACA0EF003125FF /* Supporting Files */,
-			);
-			path = AXViewControllerShema;
-			sourceTree = "<group>";
-		};
-		DC9A38931DACA0EF003125FF /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				DC9A38941DACA0EF003125FF /* main.m */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		DC9A38AC1DACA0F0003125FF /* AXViewControllerShemaTests */ = {
@@ -143,9 +181,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DC9A388F1DACA0EF003125FF /* AXViewControllerShema */ = {
+		DC9A388F1DACA0EF003125FF /* AXResponderSchemaManager */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DC9A38BD1DACA0F0003125FF /* Build configuration list for PBXNativeTarget "AXViewControllerShema" */;
+			buildConfigurationList = DC9A38BD1DACA0F0003125FF /* Build configuration list for PBXNativeTarget "AXResponderSchemaManager" */;
 			buildPhases = (
 				DC9A388C1DACA0EF003125FF /* Sources */,
 				DC9A388D1DACA0EF003125FF /* Frameworks */,
@@ -155,14 +193,14 @@
 			);
 			dependencies = (
 			);
-			name = AXViewControllerShema;
+			name = AXResponderSchemaManager;
 			productName = AXViewControllerShema;
-			productReference = DC9A38901DACA0EF003125FF /* AXViewControllerShema.app */;
+			productReference = DC9A38901DACA0EF003125FF /* AXResponderSchemaManager.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DC9A38A81DACA0F0003125FF /* AXViewControllerShemaTests */ = {
+		DC9A38A81DACA0F0003125FF /* AXResponderSchemaManagerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DC9A38C01DACA0F0003125FF /* Build configuration list for PBXNativeTarget "AXViewControllerShemaTests" */;
+			buildConfigurationList = DC9A38C01DACA0F0003125FF /* Build configuration list for PBXNativeTarget "AXResponderSchemaManagerTests" */;
 			buildPhases = (
 				DC9A38A51DACA0F0003125FF /* Sources */,
 				DC9A38A61DACA0F0003125FF /* Frameworks */,
@@ -173,14 +211,14 @@
 			dependencies = (
 				DC9A38AB1DACA0F0003125FF /* PBXTargetDependency */,
 			);
-			name = AXViewControllerShemaTests;
+			name = AXResponderSchemaManagerTests;
 			productName = AXViewControllerShemaTests;
-			productReference = DC9A38A91DACA0F0003125FF /* AXViewControllerShemaTests.xctest */;
+			productReference = DC9A38A91DACA0F0003125FF /* AXResponderSchemaManagerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		DC9A38B31DACA0F0003125FF /* AXViewControllerShemaUITests */ = {
+		DC9A38B31DACA0F0003125FF /* AXResponderSchemaManagerUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DC9A38C31DACA0F0003125FF /* Build configuration list for PBXNativeTarget "AXViewControllerShemaUITests" */;
+			buildConfigurationList = DC9A38C31DACA0F0003125FF /* Build configuration list for PBXNativeTarget "AXResponderSchemaManagerUITests" */;
 			buildPhases = (
 				DC9A38B01DACA0F0003125FF /* Sources */,
 				DC9A38B11DACA0F0003125FF /* Frameworks */,
@@ -191,9 +229,9 @@
 			dependencies = (
 				DC9A38B61DACA0F0003125FF /* PBXTargetDependency */,
 			);
-			name = AXViewControllerShemaUITests;
+			name = AXResponderSchemaManagerUITests;
 			productName = AXViewControllerShemaUITests;
-			productReference = DC9A38B41DACA0F0003125FF /* AXViewControllerShemaUITests.xctest */;
+			productReference = DC9A38B41DACA0F0003125FF /* AXResponderSchemaManagerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -224,7 +262,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DC9A388B1DACA0EF003125FF /* Build configuration list for PBXProject "AXViewControllerShema" */;
+			buildConfigurationList = DC9A388B1DACA0EF003125FF /* Build configuration list for PBXProject "AXResponderSchemaManager" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -237,9 +275,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DC9A388F1DACA0EF003125FF /* AXViewControllerShema */,
-				DC9A38A81DACA0F0003125FF /* AXViewControllerShemaTests */,
-				DC9A38B31DACA0F0003125FF /* AXViewControllerShemaUITests */,
+				DC9A388F1DACA0EF003125FF /* AXResponderSchemaManager */,
+				DC9A38A81DACA0F0003125FF /* AXResponderSchemaManagerTests */,
+				DC9A38B31DACA0F0003125FF /* AXResponderSchemaManagerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -249,9 +287,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC9A38A31DACA0EF003125FF /* LaunchScreen.storyboard in Resources */,
-				DC9A38A01DACA0EF003125FF /* Assets.xcassets in Resources */,
-				DC9A389E1DACA0EF003125FF /* Main.storyboard in Resources */,
+				DC29A9961DACF7050073E8AF /* Info.plist in Resources */,
+				DC29A9921DACF7050073E8AF /* Main.storyboard in Resources */,
+				DC29A9901DACF7050073E8AF /* Assets.xcassets in Resources */,
+				DC29A9911DACF7050073E8AF /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,9 +315,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC9A389B1DACA0EF003125FF /* ViewController.m in Sources */,
-				DC9A38981DACA0EF003125FF /* AppDelegate.m in Sources */,
-				DC9A38951DACA0EF003125FF /* main.m in Sources */,
+				DC29A9971DACF7050073E8AF /* main.m in Sources */,
+				DC29A9931DACF7050073E8AF /* AXResponderSchemaComponents.m in Sources */,
+				DC29A99A1DACF7050073E8AF /* ViewController.m in Sources */,
+				DC29A9951DACF7050073E8AF /* UIViewController+Schema.m in Sources */,
+				DC29A98F1DACF7050073E8AF /* AppDelegate.m in Sources */,
+				DC29A9981DACF7050073E8AF /* TabBarViewController.m in Sources */,
+				DC29A9991DACF7050073E8AF /* TableViewController.m in Sources */,
+				DC29A99C1DACF7050073E8AF /* ViewController2.m in Sources */,
+				DC29A9941DACF7050073E8AF /* AXResponderSchemaManager.m in Sources */,
+				DC29A99B1DACF7050073E8AF /* ViewController1.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,31 +349,31 @@
 /* Begin PBXTargetDependency section */
 		DC9A38AB1DACA0F0003125FF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DC9A388F1DACA0EF003125FF /* AXViewControllerShema */;
+			target = DC9A388F1DACA0EF003125FF /* AXResponderSchemaManager */;
 			targetProxy = DC9A38AA1DACA0F0003125FF /* PBXContainerItemProxy */;
 		};
 		DC9A38B61DACA0F0003125FF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DC9A388F1DACA0EF003125FF /* AXViewControllerShema */;
+			target = DC9A388F1DACA0EF003125FF /* AXResponderSchemaManager */;
 			targetProxy = DC9A38B51DACA0F0003125FF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DC9A389C1DACA0EF003125FF /* Main.storyboard */ = {
+		DC29A9771DACF7050073E8AF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DC9A389D1DACA0EF003125FF /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		DC9A38A11DACA0EF003125FF /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC9A38A21DACA0EF003125FF /* Base */,
+				DC29A9781DACF7050073E8AF /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		DC29A9791DACF7050073E8AF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC29A97A1DACF7050073E8AF /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -428,7 +474,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TKA48YVS5T;
-				INFOPLIST_FILE = AXViewControllerShema/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/AXResponderSchemaManager/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.devedbox.AXViewControllerShema;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -440,7 +486,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TKA48YVS5T;
-				INFOPLIST_FILE = AXViewControllerShema/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/AXResponderSchemaManager/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.devedbox.AXViewControllerShema;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -456,7 +502,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.devedbox.AXViewControllerShemaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AXViewControllerShema.app/AXViewControllerShema";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AXResponderSchemaManager.app/AXResponderSchemaManager";
 			};
 			name = Debug;
 		};
@@ -469,7 +515,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.devedbox.AXViewControllerShemaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AXViewControllerShema.app/AXViewControllerShema";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AXResponderSchemaManager.app/AXResponderSchemaManager";
 			};
 			name = Release;
 		};
@@ -500,7 +546,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DC9A388B1DACA0EF003125FF /* Build configuration list for PBXProject "AXViewControllerShema" */ = {
+		DC9A388B1DACA0EF003125FF /* Build configuration list for PBXProject "AXResponderSchemaManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DC9A38BB1DACA0F0003125FF /* Debug */,
@@ -509,29 +555,32 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DC9A38BD1DACA0F0003125FF /* Build configuration list for PBXNativeTarget "AXViewControllerShema" */ = {
+		DC9A38BD1DACA0F0003125FF /* Build configuration list for PBXNativeTarget "AXResponderSchemaManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DC9A38BE1DACA0F0003125FF /* Debug */,
 				DC9A38BF1DACA0F0003125FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		DC9A38C01DACA0F0003125FF /* Build configuration list for PBXNativeTarget "AXViewControllerShemaTests" */ = {
+		DC9A38C01DACA0F0003125FF /* Build configuration list for PBXNativeTarget "AXResponderSchemaManagerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DC9A38C11DACA0F0003125FF /* Debug */,
 				DC9A38C21DACA0F0003125FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		DC9A38C31DACA0F0003125FF /* Build configuration list for PBXNativeTarget "AXViewControllerShemaUITests" */ = {
+		DC9A38C31DACA0F0003125FF /* Build configuration list for PBXNativeTarget "AXResponderSchemaManagerUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DC9A38C41DACA0F0003125FF /* Debug */,
 				DC9A38C51DACA0F0003125FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

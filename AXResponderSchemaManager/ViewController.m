@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "UIViewController+Schema.h"
+#import "AXResponderSchemaManager.h"
 
 @interface ViewController ()
 
@@ -17,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    [AXResponderSchemaManager registerSchema:@"viewcontroller1" forClass:@"ViewController1"];
 }
 
 
@@ -25,5 +28,11 @@
     // Dispose of any resources that can be recreated.
 }
 
++ (instancetype)viewControllerForSchema {
+    return [[self alloc] init];
+}
 
+- (IBAction)show:(id)sender {
+    [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:@"axviewcontrollerschema://viewcontroller/viewcontroller1?navigation=1&animated=1"]];
+}
 @end

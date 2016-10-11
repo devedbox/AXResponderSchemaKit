@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "AXResponderSchemaComponents.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    NSURL *url = [NSURL URLWithString:@"appname://viewcontroller/login/navigation/1/animated/1/heh"];
+    NSLog(@"URL Schema: %@, URL resource identifier: %@, query: %@", url.scheme, url.resourceSpecifier, url.query);
+    NSLog(@"\n\n");
+    AXResponderSchemaComponents *componnets = [AXResponderSchemaComponents componentsWithURL:url];
+    NSLog(@"\n\n");
+    NSLog(@"%@", @(1 << 6));
+    
     return YES;
 }
 
