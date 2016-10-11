@@ -34,6 +34,12 @@
  * appname://control/like/action/64
  */
 NS_ASSUME_NONNULL_BEGIN
+
+extern NSString *const kAXResponderSchemaNavigationKey;
+extern NSString *const kAXResponderSchemaAnimatedKey;
+extern NSString *const kAXResponderSchemaSelectedIndexKey;
+extern NSString *const kAXResponderSchemaActionKey;
+
 typedef NS_ENUM(int64_t, AXSchemaNavigation) {
     /// Push view controllers using navigation controller.
     AXSchemaNavigationPush,
@@ -44,6 +50,8 @@ typedef NS_ENUM(int64_t, AXSchemaNavigation) {
 };
 
 @interface AXResponderSchemaComponents : NSObject
+/// Default navigation.
+@property(assign, nonatomic) AXSchemaNavigation defaultNavigation;
 /// Scheme of the manager.
 @property(nullable, readonly, nonatomic) NSString *scheme;
 /// Moudle of manager to handle with.
@@ -58,6 +66,10 @@ typedef NS_ENUM(int64_t, AXSchemaNavigation) {
 @property(readonly, nonatomic) BOOL animated;
 /// Selected index for `UITabBarController` schema.
 @property(readonly, nonatomic) NSInteger selectedIndex;
+/// Params of url.
+@property(strong, nonatomic) NSDictionary *params;
+/// URL.
+@property(readonly, nonatomic) NSURL *URL;
 
 - (instancetype)initWithURL:(NSURL *)url;
 + (instancetype)componentsWithURL:(NSURL *)url;

@@ -28,18 +28,17 @@
 @interface AXResponderSchemaComponents ()
 /// Components.
 @property(strong, nonatomic) NSURLComponents *components;
-/// Params.
-@property(strong, nonatomic) NSDictionary *params;
 @end
 
-NSString *const kAXResponderSchemaNavigationkey = @"navigation";
-NSString *const kAXResponderSchemaAnimatedkey = @"animated";
-NSString *const kAXResponderSchemaSelectedIndexkey = @"selectedindex";
-NSString *const kAXResponderSchemaActionkey = @"action";
+NSString *const kAXResponderSchemaNavigationKey = @"navigation";
+NSString *const kAXResponderSchemaAnimatedKey = @"animated";
+NSString *const kAXResponderSchemaSelectedIndexKey = @"selectedindex";
+NSString *const kAXResponderSchemaActionKey = @"action";
 
 @implementation AXResponderSchemaComponents
 - (instancetype)initWithURL:(NSURL *)url {
     if (self = [super init]) {
+        _URL = url;
         [self handleWithURL:url];
     }
     return self;
@@ -53,19 +52,22 @@ NSString *const kAXResponderSchemaActionkey = @"action";
 #pragma mark - Getters
 
 - (AXSchemaNavigation)navigation {
-    return [_params[kAXResponderSchemaNavigationkey] integerValue];
+    return [_params[kAXResponderSchemaNavigationKey] integerValue];
 }
 
 - (BOOL)animated {
-    return [_params[kAXResponderSchemaAnimatedkey] boolValue];
+    return [_params[kAXResponderSchemaAnimatedKey] boolValue];
 }
 
 - (UIControlEvents)event {
-    return [_params[kAXResponderSchemaActionkey] integerValue];
+    return [_params[kAXResponderSchemaActionKey] integerValue];
 }
 
 - (NSInteger)selectedIndex {
-    return [_params[kAXResponderSchemaSelectedIndexkey] integerValue];
+    if (!_params[kAXResponderSchemaSelectedIndexKey]) {
+        return _defaultNavigation;
+    }
+    return [_params[kAXResponderSchemaSelectedIndexKey] integerValue];
 }
 
 #pragma mark - Private handler.

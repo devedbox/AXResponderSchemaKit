@@ -24,17 +24,51 @@
 //  SOFTWARE.
 
 #import "UIViewController+Schema.h"
+#import "AXResponderSchemaManager.h"
+#import <objc/runtime.h>
 
 @implementation UIViewController (Schema)
-+ (instancetype)viewControllerForSchema {
-    return nil;
+
++ (void)ax_exchangeClassOriginalMethod:(SEL)original swizzledMethod:(SEL)swizzled {
+    Method _method1 = class_getInstanceMethod(self, original);
+    if (_method1 == NULL) return;
+    method_exchangeImplementations(_method1, class_getClassMethod(self, swizzled));
 }
 
-+ (UIViewController *)viewControllerToShow {
++ (void)ax_exchangeInstanceOriginalMethod:(SEL)original swizzledMethod:(SEL)swizzled {
+    Method _method1 = class_getInstanceMethod(self, original);
+    if (_method1 == NULL) return;
+    method_exchangeImplementations(_method1, class_getInstanceMethod(self, swizzled));
+}
+
++ (void)load {
+    [self ax_exchangeInstanceOriginalMethod:@selector(viewDidAppear:) swizzledMethod:@selector(ax_viewDidAppear:)];
+}
+
++ (instancetype)viewControllerForSchemaWithParams:(NSDictionary *)params {
     return nil;
 }
 
 + (Class)classForNavigationController {
     return UINavigationController.class;
+}
+
+- (void)ax_viewDidAppear:(BOOL)animated {
+    [self ax_viewDidAppear:animated];
+    if (self.viewDidAppearSchema) {
+        [[AXResponderSchemaManager sharedManager] openURL:self.viewDidAppearSchema];
+    }
+}
+
+- (UIControl *)UIControlOfViewControllerForIdentifier:(NSString *)controlIdentifier {
+    return nil;
+}
+
+- (NSURL *)viewDidAppearSchema {
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setViewDidAppearSchema:(NSURL *)viewDidAppearSchema {
+    objc_setAssociatedObject(self, @selector(viewDidAppearSchema), viewDidAppearSchema, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 @end

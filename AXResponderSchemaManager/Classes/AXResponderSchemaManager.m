@@ -33,6 +33,8 @@ NSString *const kAXResponderSchemaModuleUIControl = @"control";
 
 NSString *const kAXResponderSchemaTabBarControllerIdentifier = @"tabbar";
 
+NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
+
 @implementation AXResponderSchemaManager
 + (instancetype)sharedManager {
     static id _sharedInstance = nil;
@@ -49,6 +51,10 @@ NSString *const kAXResponderSchemaTabBarControllerIdentifier = @"tabbar";
 }
 
 - (BOOL)openURL:(NSURL *)url {
+    return [self openURL:url completion:nil];
+}
+
+- (BOOL)openURL:(NSURL *)url completion:(NSURL *)completion {
     if (![self canOpenURL:url]) return NO;
     if (![self _canOpenURL:url]) {
         if ([[UIApplication sharedApplication] canOpenURL:url]) {
@@ -64,7 +70,7 @@ NSString *const kAXResponderSchemaTabBarControllerIdentifier = @"tabbar";
         }
     }
     
-    return [self _openSchemaWithSchemaComponents:[AXResponderSchemaComponents componentsWithURL:url]];
+    return [self _openSchemaWithSchemaComponents:[AXResponderSchemaComponents componentsWithURL:url] completion:completion viewDidAppearSchema:nil];
 }
 
 + (void)registerSchema:(NSString *)schemaIdentifier forClass:(NSString *)classIdentifier {
@@ -93,17 +99,26 @@ NSString *const kAXResponderSchemaTabBarControllerIdentifier = @"tabbar";
     return [[schema scheme] isEqualToString:_appSchema?:[[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"] lowercaseString]];
 }
 
-- (BOOL)_openSchemaWithSchemaComponents:(AXResponderSchemaComponents *)components {
+- (BOOL)_openSchemaWithSchemaComponents:(AXResponderSchemaComponents *)components completion:(NSURL *)completionURL viewDidAppearSchema:(NSURL *)schema {
     Class schemaClass = [self.class classForSchema:components.identifier];
+    
     if (class_isMetaClass(schemaClass)) return NO;
     if ((schemaClass == NULL || ![UIApplication sharedApplication].keyWindow.rootViewController) && ![components.identifier isEqualToString:kAXResponderSchemaTabBarControllerIdentifier]) return NO;
     // Handle the moudle.
     if ([components.module isEqualToString:kAXResponderSchemaModuleUIViewController]) { // View controller -> Show and hide.
+        if ([[self _topViewController] isMemberOfClass:schemaClass]) return NO;
         // Get the new view controller with the methods.
         if (![schemaClass isSubclassOfClass:UIViewController.class]) {
             return NO;
         }
-        UIViewController *viewController = [schemaClass viewControllerForSchema];
+        // Set up params.
+        NSMutableDictionary *params = [components.params mutableCopy];
+        if (completionURL) [params setObject:completionURL forKey:kAXResponderSchemaCompletionURLKey];
+        // Get the view controller.
+        UIViewController *viewController = [schemaClass viewControllerForSchemaWithParams:params];
+        
+        viewController.viewDidAppearSchema = schema;
+        
         UIViewController *viewControllerToShow = _navigationController?:_viewController;
         // Get the navitation.
         switch (components.navigation) {
@@ -127,7 +142,7 @@ NSString *const kAXResponderSchemaTabBarControllerIdentifier = @"tabbar";
                     [viewControllerToShow presentViewController:viewController animated:components.animated completion:NULL];
                 } else {
                     // Get navigation class.
-                    Class navigationClass = class_respondsToSelector(schemaClass, @selector(classForNavigationController))?[schemaClass classForNavigationController]:UINavigationController.class;
+                    Class navigationClass = class_respondsToSelector(schemaClass, @selector(classForNavigationController))?[schemaClass classForNavigationController]:_navigationControllClass?:UINavigationController.class;
                     // Verify class.
                     if (class_isMetaClass(navigationClass)) return NO;
                     if (![navigationClass isSubclassOfClass:UINavigationController.class]) {
@@ -160,22 +175,7 @@ NSString *const kAXResponderSchemaTabBarControllerIdentifier = @"tabbar";
             }
             default: {
                 // Get the navigation controller.
-                UINavigationController *navigationController = _navigationController;
-                if (!navigationController) {
-                    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-                    if ([rootViewController isKindOfClass:[UITabBarController class]]) {
-                        UITabBarController *tabBarController = (UITabBarController *)rootViewController;
-                        if ([tabBarController.selectedViewController isKindOfClass:[UINavigationController class]]) {
-                            rootViewController = (UINavigationController *)tabBarController.selectedViewController;
-                        }
-                    }
-                    
-                    if ([rootViewController isKindOfClass:[UINavigationController class]]) {
-                        navigationController = (UINavigationController *)rootViewController;
-                    } else if ([rootViewController isKindOfClass:[UIViewController class]]) {
-                        navigationController = rootViewController.navigationController;
-                    }
-                }
+                UINavigationController *navigationController = _navigationController ?: [self _rootNavigationController];
                 
                 if (!navigationController) return NO;
                 
@@ -185,11 +185,47 @@ NSString *const kAXResponderSchemaTabBarControllerIdentifier = @"tabbar";
         }
     } else if ([components.module isEqualToString:kAXResponderSchemaModuleUIControl]) { // UIControl -> Send actions.
         // Get the control object.
-        if (![schemaClass isSubclassOfClass:UIControl.class]) {
+        if (![schemaClass isSubclassOfClass:UIViewController.class]) {
             return NO;
         }
         //TODO: Implemente UIControl.
+        // Get the top view controller.
+        UIViewController *topViewController = [self _topViewController];
+        if ([topViewController isMemberOfClass:schemaClass]) {
+            // Get control.
+            UIControl *control = [topViewController UIControlOfViewControllerForIdentifier:components.identifier];
+            if (!control) return NO;
+            [control sendActionsForControlEvents:components.event];
+            return YES;
+        } else {
+            // Open view controller first.
+            [components setValue:@"viewcontroller" forKeyPath:@"module"];
+            return [self _openSchemaWithSchemaComponents:components completion:nil viewDidAppearSchema:components.URL];
+            return YES;
+        }
     }
     return NO;
+}
+
+#pragma mark - Private
+- (UINavigationController *)_rootNavigationController {
+    return [[self _topViewController] navigationController];
+}
+
+- (UIViewController *)_topViewController {
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if ([rootViewController isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *tabBarController = (UITabBarController *)rootViewController;
+        if ([tabBarController.selectedViewController isKindOfClass:[UINavigationController class]]) {
+            rootViewController = (UINavigationController *)tabBarController.selectedViewController;
+        }
+    }
+    
+    if ([rootViewController isKindOfClass:[UINavigationController class]]) {
+        return [(UINavigationController *)rootViewController topViewController];
+    } else if ([rootViewController isKindOfClass:[UIViewController class]]) {
+        return rootViewController.navigationController;
+    }
+    return nil;
 }
 @end

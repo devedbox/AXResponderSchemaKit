@@ -129,13 +129,13 @@
 		DC29A97B1DACF7050073E8AF /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				DC29A97C1DACF7050073E8AF /* AXResponderSchemaComponents.h */,
-				DC29A97D1DACF7050073E8AF /* AXResponderSchemaComponents.m */,
 				DC29A97E1DACF7050073E8AF /* AXResponderSchemaKit.h */,
-				DC29A97F1DACF7050073E8AF /* AXResponderSchemaManager.h */,
-				DC29A9801DACF7050073E8AF /* AXResponderSchemaManager.m */,
 				DC29A9811DACF7050073E8AF /* UIViewController+Schema.h */,
 				DC29A9821DACF7050073E8AF /* UIViewController+Schema.m */,
+				DC29A97F1DACF7050073E8AF /* AXResponderSchemaManager.h */,
+				DC29A9801DACF7050073E8AF /* AXResponderSchemaManager.m */,
+				DC29A97C1DACF7050073E8AF /* AXResponderSchemaComponents.h */,
+				DC29A97D1DACF7050073E8AF /* AXResponderSchemaComponents.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

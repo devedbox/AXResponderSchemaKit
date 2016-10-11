@@ -25,7 +25,26 @@
 
 #import <UIKit/UIKit.h>
 
+/// URL key of completion key.
+extern NSString *_Nonnull const kAXResponderSchemaCompletionURLKey;
+
 @interface UIViewController (Schema)
-+ (instancetype)viewControllerForSchema;
-+ (Class)classForNavigationController;
+/// View did appear urr schema.
+@property(copy, nonatomic) NSURL *viewDidAppearSchema;
+/// Get the view controller for responder schema.
+///
+/// @param params params of the url object.
+///
+/// @return a new view controller.
++ (nullable instancetype)viewControllerForSchemaWithParams:(NSDictionary *_Nullable)params;
+/// Get the class of navigation controller.
+///
+/// @return class of navigation controller.
++ (nullable Class)classForNavigationController;
+/// Get the instance of view controller for the control identifier.
+///
+/// @param controlIdentifier a control identifier.
+///
+/// @return an instance of UIControl.
+- (nullable __kindof UIControl *)UIControlOfViewControllerForIdentifier:(NSString *_Nullable)controlIdentifier;
 @end

@@ -30,12 +30,14 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString *const kAXResponderSchemaModuleUIViewController;
 extern NSString *const kAXResponderSchemaModuleUIControl;
 
-// Default schema identifiers.
+/// Default schema identifiers.
 extern NSString *const kAXResponderSchemaTabBarControllerIdentifier;
 
 @interface AXResponderSchemaManager : NSObject
 /// App schema.
 @property(copy, nonatomic) NSString *appSchema;
+/// Class for navigation controller.
+@property(nullable, copy, nonatomic) Class navigationControllClass;
 /// View controller to show the new added view controller.
 @property(nullable, weak, nonatomic) UIViewController *viewController;
 /// Tab bar controller to show selectd view controller.
@@ -50,6 +52,7 @@ extern NSString *const kAXResponderSchemaTabBarControllerIdentifier;
 + (Class _Nullable)classForSchema:(NSString *)schemaIdentifier;
 
 - (BOOL)openURL:(NSURL *)url;
+- (BOOL)openURL:(NSURL *)url completion:(NSURL * _Nullable)completion;
 - (BOOL)canOpenURL:(NSURL *)url;
 @end
 NS_ASSUME_NONNULL_END

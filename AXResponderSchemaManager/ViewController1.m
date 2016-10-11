@@ -8,6 +8,7 @@
 
 #import "ViewController1.h"
 #import "UIViewController+Schema.h"
+#import "AXResponderSchemaManager.h"
 
 @interface ViewController1 ()
 
@@ -24,11 +25,23 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-+ (instancetype)viewControllerForSchema {
++ (instancetype)viewControllerForSchemaWithParams:(NSDictionary *)params {
     return [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"kViewController1Identifier"];
 }
 + (Class)classForNavigationController {
     return [UINavigationController class];
+}
+
+- (UIControl *)UIControlOfViewControllerForIdentifier:(NSString *)controlIdentifier {
+    return _switcha;
+}
+
+- (IBAction)switchaaa:(id)sender {
+    _switcha.on = !_switcha.on;
+}
+
+- (IBAction)sendSwitch:(id)sender {
+    [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"axviewcontrollerschema://control/switch?navigation=0&animated=1&action=%@", @(1 << 12)]]];
 }
 /*
 #pragma mark - Navigation

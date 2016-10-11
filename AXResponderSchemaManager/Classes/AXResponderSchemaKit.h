@@ -26,5 +26,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "AXResponderSchemaManager.h"
 #import "AXResponderSchemaComponents.h"
 #import "UIViewController+Schema.h"

@@ -10,7 +10,6 @@
 #import "AXResponderSchemaManager.h"
 
 @interface TableViewController ()
-
 @end
 
 @implementation TableViewController
@@ -25,6 +24,13 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     [AXResponderSchemaManager registerSchema:@"viewcontroller1" forClass:@"ViewController1"];
+    [AXResponderSchemaManager registerSchema:@"switch" forClass:@"ViewController1"];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    NSLog(@"%s", __FUNCTION__);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,8 +48,11 @@
         case 1:
             [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:@"axviewcontrollerschema://viewcontroller/viewcontroller1?navigation=0&animated=1"]];
             break;
-        default:
+        case 2:
             [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:@"axviewcontrollerschema://viewcontroller/viewcontroller1?navigation=1&animated=1"]];
+            break;
+        default:
+            [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"axviewcontrollerschema://control/switch?navigation=0&animated=1&action=%@", @(1 << 12)]]];
             break;
     }
 }

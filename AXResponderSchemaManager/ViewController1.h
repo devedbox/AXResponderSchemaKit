@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController1 : UIViewController
-
+/// Switch.
+@property(weak, nonatomic) IBOutlet UISwitch *switcha;
 @end
