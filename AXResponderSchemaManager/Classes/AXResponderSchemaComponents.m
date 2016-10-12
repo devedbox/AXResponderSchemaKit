@@ -34,6 +34,7 @@ NSString *const kAXResponderSchemaNavigationKey = @"navigation";
 NSString *const kAXResponderSchemaAnimatedKey = @"animated";
 NSString *const kAXResponderSchemaSelectedIndexKey = @"selectedindex";
 NSString *const kAXResponderSchemaActionKey = @"action";
+NSString *const kAXResponderSchemaSchemaClassKey = @"class";
 
 @implementation AXResponderSchemaComponents
 - (instancetype)initWithURL:(NSURL *)url {
@@ -51,6 +52,12 @@ NSString *const kAXResponderSchemaActionKey = @"action";
 
 #pragma mark - Getters
 
+- (Class)schemaClass {
+    NSString *classIdentifier = _params[kAXResponderSchemaSchemaClassKey];
+    if (!classIdentifier) return NULL;
+    return NSClassFromString(classIdentifier);
+}
+
 - (AXSchemaNavigation)navigation {
     return [_params[kAXResponderSchemaNavigationKey] integerValue];
 }
@@ -64,9 +71,6 @@ NSString *const kAXResponderSchemaActionKey = @"action";
 }
 
 - (NSInteger)selectedIndex {
-    if (!_params[kAXResponderSchemaSelectedIndexKey]) {
-        return _defaultNavigation;
-    }
     return [_params[kAXResponderSchemaSelectedIndexKey] integerValue];
 }
 
@@ -97,7 +101,6 @@ NSString *const kAXResponderSchemaActionKey = @"action";
     } else {
         NSString *path = _components.path;
         NSArray *pathcomps = [[path componentsSeparatedByString:@"/"] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF != ''"]];
-        NSLog(@"%@", pathcomps);
         if (pathcomps.count == 0) return;
         // Get the identifier in index 0.
         _identifier = [pathcomps firstObject];

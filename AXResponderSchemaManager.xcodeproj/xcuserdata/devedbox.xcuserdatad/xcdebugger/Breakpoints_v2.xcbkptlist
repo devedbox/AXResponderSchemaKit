@@ -22,15 +22,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXResponderSchemaManager/Classes/AXResponderSchemaManager.m"
-            timestampString = "497890249.489516"
+            timestampString = "497935084.336548"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
             landmarkName = "-_openSchemaWithSchemaComponents:completion:viewDidAppearSchema:"
             landmarkType = "7">
          </BreakpointContent>
@@ -38,16 +38,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXResponderSchemaManager/Classes/AXResponderSchemaManager.m"
-            timestampString = "497889553.450506"
+            timestampString = "497938388.774589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "-_openSchemaWithSchemaComponents:completion:"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
+            landmarkName = "-_indexOfClass:inNavigationController:animated:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

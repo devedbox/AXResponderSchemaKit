@@ -25,12 +25,17 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
+#ifndef kAXResponderSchemaManager
+#define kAXResponderSchemaManager [AXResponderSchemaManager sharedManager]
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
-
+/// Module defined as `viewcontroller`.
 extern NSString *const kAXResponderSchemaModuleUIViewController;
+/// Module defined as `control`.
 extern NSString *const kAXResponderSchemaModuleUIControl;
-
-/// Default schema identifiers.
+/// Default schema identifiers for UITabBarController.
 extern NSString *const kAXResponderSchemaTabBarControllerIdentifier;
 
 @interface AXResponderSchemaManager : NSObject
@@ -44,15 +49,61 @@ extern NSString *const kAXResponderSchemaTabBarControllerIdentifier;
 @property(nullable, weak, nonatomic) UITabBarController *tabBarController;
 /// Navigation controller to push new added view controller.
 @property(nullable, weak, nonatomic) UINavigationController *navigationController;
-
+/// Get the shared instance.
+///
+/// @result return the shared instance.
 + (instancetype)sharedManager;
-
+/// Register a class identifier for a specific schema identifier.
+///
+/// @param schemaIdentifier schema identifier to be registered.
+/// @param classIdentifier  class identifier for the schema.
+///
 + (void)registerSchema:(NSString *)schemaIdentifier forClass:(NSString *)classIdentifier;
+/// Unregister the class identifier for the specific schema identifier and remove the configuration.
+///
+/// @param schemaIdentifier schema identifier to be unregistered.
 + (void)unregisterSchema:(NSString *)schemaIdentifier;
+/// Get the class of the schema identifier.
+///
+/// @param schemaIdentifier schema identifier registered.
+///
+/// @return Class for the schema. Can be NULL.
 + (Class _Nullable)classForSchema:(NSString *)schemaIdentifier;
-
+/// Open url.
+///
+/// @param url url to be opened.
+///
+/// @return result value.
 - (BOOL)openURL:(NSURL *)url;
-- (BOOL)openURL:(NSURL *)url completion:(NSURL * _Nullable)completion;
+/// Open the url with custom completion schema.
+///
+/// @param url url to open.
+/// @param completion schema for custom completion schema.
+///
+/// @return result value.
+- (BOOL)openURL:(NSURL *)url completion:(NSURL *_Nullable)completion;
+/// Open the url with custom completion schema.
+///
+/// @param url url to open.
+/// @param viewDidAppear schema for view did appear schema.
+///
+/// @return result value.
+- (BOOL)openURL:(NSURL *)url viewDidAppear:(NSURL*_Nullable)viewDidAppear;
+/// Open the url with custom completion schema.
+///
+/// @param url url to open.
+/// @param completion schema for custom completion schema.
+/// @param viewDidAppear schema for view did appear schema.
+///
+/// @return result value.
+- (BOOL)openURL:(NSURL *)url completion:(NSURL *_Nullable)completion viewDidAppear:(NSURL*_Nullable)viewDidAppear;
+/// Can open the url.
+///
+/// @discusstion If scheme is not app schema, return the application shared instance's result.
+///
+/// @param url url to open.
+///
+/// @return result value.
 - (BOOL)canOpenURL:(NSURL *)url;
 @end
 NS_ASSUME_NONNULL_END

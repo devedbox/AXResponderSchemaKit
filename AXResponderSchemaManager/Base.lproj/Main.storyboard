@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2333a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="2a8-ee-4dD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="2a8-ee-4dD">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -224,12 +224,28 @@
                                     <action selector="sendSwitch:" destination="zbX-Bu-VaY" eventType="touchUpInside" id="YJL-Fr-LDA"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K6s-yz-f5x">
+                                <state key="normal" title="Show view controller 2"/>
+                                <connections>
+                                    <action selector="showViewController2:" destination="zbX-Bu-VaY" eventType="touchUpInside" id="qS9-Dd-y9O"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D5O-n7-epE">
+                                <state key="normal" title="Show table view controller"/>
+                                <connections>
+                                    <action selector="showTableViewController:" destination="zbX-Bu-VaY" eventType="touchUpInside" id="YbW-Xq-k2w"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.52941176469999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Iga-1u-oFL" firstAttribute="centerY" secondItem="Ttx-au-Kkd" secondAttribute="centerY" id="A2r-rF-vTZ"/>
                             <constraint firstItem="Iga-1u-oFL" firstAttribute="centerX" secondItem="Ttx-au-Kkd" secondAttribute="centerX" id="ON6-Qf-GV6"/>
+                            <constraint firstItem="K6s-yz-f5x" firstAttribute="centerX" secondItem="Ttx-au-Kkd" secondAttribute="centerX" id="UoD-XV-14P"/>
+                            <constraint firstItem="D5O-n7-epE" firstAttribute="centerX" secondItem="Ttx-au-Kkd" secondAttribute="centerX" id="Y7N-k6-5Vg"/>
+                            <constraint firstItem="D5O-n7-epE" firstAttribute="top" secondItem="K6s-yz-f5x" secondAttribute="bottom" constant="8" id="cQW-nn-Xj8"/>
                             <constraint firstItem="6gg-rZ-WuS" firstAttribute="centerX" secondItem="Ttx-au-Kkd" secondAttribute="centerX" id="eeQ-bk-QB8"/>
+                            <constraint firstItem="K6s-yz-f5x" firstAttribute="top" secondItem="Iga-1u-oFL" secondAttribute="bottom" constant="25" id="xCB-xr-cN3"/>
                             <constraint firstItem="Iga-1u-oFL" firstAttribute="top" secondItem="6gg-rZ-WuS" secondAttribute="bottom" constant="28" id="ya4-eo-3Ap"/>
                         </constraints>
                     </view>
@@ -244,7 +260,7 @@
         <!--View Controller2-->
         <scene sceneID="cTo-YE-oTN">
             <objects>
-                <viewController id="inW-I4-0Ja" customClass="ViewController2" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="kViewController2Identifier" useStoryboardIdentifierAsRestorationIdentifier="YES" id="inW-I4-0Ja" customClass="ViewController2" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="E0e-FR-ctd"/>
                         <viewControllerLayoutGuide type="bottom" id="Rzm-hh-h1Q"/>
@@ -252,7 +268,19 @@
                     <view key="view" contentMode="scaleToFill" id="KmD-N1-Ked">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNq-3e-NrD">
+                                <state key="normal" title="Show view controller 1"/>
+                                <connections>
+                                    <action selector="showViewController1:" destination="inW-I4-0Ja" eventType="touchUpInside" id="Ut8-TO-1p2"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cNq-3e-NrD" firstAttribute="centerY" secondItem="KmD-N1-Ked" secondAttribute="centerY" id="L9v-qD-w1y"/>
+                            <constraint firstItem="cNq-3e-NrD" firstAttribute="centerX" secondItem="KmD-N1-Ked" secondAttribute="centerX" id="fRv-7c-ADv"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ip8-GJ-SI0" userLabel="First Responder" sceneMemberID="firstResponder"/>

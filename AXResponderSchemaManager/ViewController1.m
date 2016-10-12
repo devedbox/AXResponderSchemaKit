@@ -37,11 +37,19 @@
 }
 
 - (IBAction)switchaaa:(id)sender {
-    _switcha.on = !_switcha.on;
+    [_switcha setOn:!_switcha.on animated:YES];
 }
 
 - (IBAction)sendSwitch:(id)sender {
     [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"axviewcontrollerschema://control/switch?navigation=0&animated=1&action=%@", @(1 << 12)]]];
+}
+
+- (IBAction)showViewController2:(id)sender {
+    [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:@"axviewcontrollerschema://viewcontroller/show2?navigation=1&animated=1&class=ViewController2"]];
+}
+
+- (IBAction)showTableViewController:(id)sender {
+    [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:@"axviewcontrollerschema://viewcontroller/table?navigation=0&animated=1&class=TableViewController"]];
 }
 /*
 #pragma mark - Navigation

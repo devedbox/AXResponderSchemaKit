@@ -34,11 +34,16 @@
  * appname://control/like/action/64
  */
 NS_ASSUME_NONNULL_BEGIN
-
+/// Param key: `navigation`
 extern NSString *const kAXResponderSchemaNavigationKey;
+/// Param key: `animated`
 extern NSString *const kAXResponderSchemaAnimatedKey;
+/// Param key: `selectedindex`
 extern NSString *const kAXResponderSchemaSelectedIndexKey;
+/// Param key: `action`
 extern NSString *const kAXResponderSchemaActionKey;
+/// Param key: `class`
+extern NSString *const kAXResponderSchemaSchemaClassKey;
 
 typedef NS_ENUM(int64_t, AXSchemaNavigation) {
     /// Push view controllers using navigation controller.
@@ -50,8 +55,8 @@ typedef NS_ENUM(int64_t, AXSchemaNavigation) {
 };
 
 @interface AXResponderSchemaComponents : NSObject
-/// Default navigation.
-@property(assign, nonatomic) AXSchemaNavigation defaultNavigation;
+/// Class of schema.
+@property(nullable, readonly, nonatomic) Class schemaClass;
 /// Scheme of the manager.
 @property(nullable, readonly, nonatomic) NSString *scheme;
 /// Moudle of manager to handle with.

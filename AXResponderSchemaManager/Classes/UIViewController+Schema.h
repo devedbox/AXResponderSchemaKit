@@ -30,7 +30,7 @@ extern NSString *_Nonnull const kAXResponderSchemaCompletionURLKey;
 
 @interface UIViewController (Schema)
 /// View did appear urr schema.
-@property(copy, nonatomic) NSURL *viewDidAppearSchema;
+@property(nullable, copy, nonatomic) NSURL *viewDidAppearSchema;
 /// Get the view controller for responder schema.
 ///
 /// @param params params of the url object.
