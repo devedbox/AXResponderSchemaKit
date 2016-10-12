@@ -82,18 +82,19 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
 }
 
 + (void)registerSchema:(NSString *)schemaIdentifier forClass:(NSString *)classIdentifier {
-    if ([self classForSchema:schemaIdentifier] != NULL) return;
+    if ([self classForSchema:schemaIdentifier] != NULL || ![classIdentifier isKindOfClass:NSString.class]) return;
     [[NSUserDefaults standardUserDefaults] setObject:classIdentifier forKey:[NSString stringWithFormat:@"_axresponderschema_%@", schemaIdentifier]];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 + (void)unregisterSchema:(NSString *)schemaIdentifier {
-    if ([self classForSchema:schemaIdentifier] == NULL) return;
+    if ([self classForSchema:schemaIdentifier] == NULL || ![schemaIdentifier isKindOfClass:NSString.class]) return;
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:[NSString stringWithFormat:@"_axresponderschema_%@", schemaIdentifier]];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 + (Class)classForSchema:(NSString *)schemaIdentifier {
+    if (![schemaIdentifier isKindOfClass:NSString.class]) return NULL;
     NSString *classIdentifier = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"_axresponderschema_%@", schemaIdentifier]];
     return NSClassFromString(classIdentifier);
 }
@@ -230,8 +231,11 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
 
 - (UIViewController *)_topViewControllerWithRootViewController:(UIViewController *_Nullable)rootViewCoontroller {
     UIViewController *topViewController = rootViewCoontroller;
+    // Find the view controller hierarchy if class is `UITabBarController`.
     if ([topViewController isKindOfClass:[UITabBarController class]]) {
+        // Get the tab bar controller.
         UITabBarController *tabBarController = (UITabBarController *)topViewController;
+        // Find the view controller hierarchy if class is still `UITabBarController` or `UINavigationController`.
         if ([tabBarController.selectedViewController isKindOfClass:[UINavigationController class]] || [tabBarController.selectedViewController isKindOfClass:[UITabBarController class]]) {
             topViewController = [self _topViewControllerWithRootViewController:tabBarController.selectedViewController];
         }  else {
@@ -241,7 +245,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
             topViewController = tabBarController.selectedViewController.presentedViewController?:tabBarController.selectedViewController;
         }
     }
-    
+    // Resolve the navigation class.
     if ([topViewController isKindOfClass:[UINavigationController class]]) {
         UINavigationController *navigationController = (UINavigationController *)topViewController;
         if (navigationController.presentedViewController) {
@@ -279,31 +283,51 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
 
 - (NSInteger)_indexOfClass:(Class)schemaClass inNavigationController:(UINavigationController **)navigationController animated:(BOOL)animated {
     if ((*navigationController).presentingViewController) {
+        // Handle with presenting view controller.
         if ([(*navigationController).presentingViewController isMemberOfClass:schemaClass]) {
+            // If current top view controller is member of schema class, return -1 to dismiss the presented controller.
             return -1;
         } else if ([(*navigationController).presentingViewController isKindOfClass:UINavigationController.class]) {
+            // Get navigation controller.
             UINavigationController *navi = (UINavigationController *)((*navigationController).presentingViewController);
+            // Dismiss the navigation controller above.
             [(*navigationController) dismissViewControllerAnimated:animated completion:NULL];
+            // Set the navigation controller blow.
             *navigationController = navi;
+            // Call mthods again.
             return [self _indexOfClass:schemaClass inNavigationController:&navi animated:animated];
+            // Handle with tab bar controller.
         } else if ([(*navigationController).presentingViewController isKindOfClass:UITabBarController.class]) {
+            // Get tab bar controller.
             UITabBarController *tabBarController = (UITabBarController *)(*navigationController).presentingViewController;
+            // Handle navigation controller if selected controller of tab bar controller is class of `UINavigationController`.
             if ([tabBarController.selectedViewController isKindOfClass:[UINavigationController class]]) {
+                // Get the selected navigation controller.
                 UINavigationController *navi = (UINavigationController *)tabBarController.selectedViewController;
+                // Get the index of schema in the selected navigation controller.
                 NSInteger index = [self _indexOfClass:schemaClass inNavigationController:&navi animated:animated];
+                // Verify index of schema class.
                 if (index != NSNotFound) {
+                    // If index found, dismiss the navigation controller.
+                    // Set to new.
                     (*navigationController) = navi;
+                    // Dismiss.
                     [(*navigationController) dismissViewControllerAnimated:animated completion:NULL];
                 }
                 return index;
             }
-        } else if ((*navigationController).presentingViewController.navigationController) {
+        } else if ((*navigationController).presentingViewController.navigationController) {// Handle with the navigation controller of presenting controller.
+            // Get the navigation controller.
             UINavigationController *navi = (*navigationController).presentingViewController.navigationController;
+            // Dismiss the navigation controller.
             [(*navigationController) dismissViewControllerAnimated:animated completion:NULL];
+            // Set the new.
             *navigationController = navi;
+            // Call self.
             return [self _indexOfClass:schemaClass inNavigationController:&navi animated:animated];
         }
     }
+    // Find the index of schema class if exits.
     NSInteger index = [(*navigationController).viewControllers indexOfObjectPassingTest:^BOOL(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isMemberOfClass:schemaClass]) {
             *stop = YES;
