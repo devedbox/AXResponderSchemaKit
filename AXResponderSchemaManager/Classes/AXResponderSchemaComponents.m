@@ -35,6 +35,7 @@ NSString *const kAXResponderSchemaAnimatedKey = @"animated";
 NSString *const kAXResponderSchemaSelectedIndexKey = @"selectedindex";
 NSString *const kAXResponderSchemaActionKey = @"action";
 NSString *const kAXResponderSchemaSchemaClassKey = @"class";
+NSString *const kAXResponderSchemaForceKey = @"force";
 
 @implementation AXResponderSchemaComponents
 - (instancetype)initWithURL:(NSURL *)url {
@@ -51,6 +52,9 @@ NSString *const kAXResponderSchemaSchemaClassKey = @"class";
 }
 
 #pragma mark - Getters
+- (BOOL)force {
+    return [_params[kAXResponderSchemaForceKey] boolValue];
+}
 
 - (Class)schemaClass {
     NSString *classIdentifier = _params[kAXResponderSchemaSchemaClassKey];
@@ -106,6 +110,7 @@ NSString *const kAXResponderSchemaSchemaClassKey = @"class";
         _identifier = [pathcomps firstObject];
         // Get the param comps.
         NSArray *paramcomps = [pathcomps subarrayWithRange:NSMakeRange(1, pathcomps.count-1)];
+        if (paramcomps.count == 0) return;
         // Get the param dictionary.
         for (int i = 0; i < paramcomps.count; i += 2) {
             if (i>=paramcomps.count-1) {

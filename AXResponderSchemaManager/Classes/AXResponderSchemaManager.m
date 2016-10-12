@@ -134,11 +134,32 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
         switch (components.navigation) {
             case AXSchemaNavigationPresent: {
                 UIViewController *topViewController = [self _topViewController];
-                if ([[topViewController presentedViewController] isMemberOfClass:schemaClass]) return YES;
-                if ([[topViewController presentingViewController] isMemberOfClass:schemaClass]) {
-                    [topViewController dismissViewControllerAnimated:components.animated completion:NULL];
-                    return YES;
+                
+                if (!components.force) {
+                    if ([topViewController isMemberOfClass:schemaClass]) return YES;
+                    if ([topViewController isKindOfClass:[UINavigationController class]]) {
+                        if ([[(UINavigationController*)topViewController topViewController] isMemberOfClass:schemaClass]) return YES;
+                    }
+                    if ([topViewController presentedViewController]) {
+                        if ([[topViewController presentedViewController] isMemberOfClass:schemaClass]) return YES;
+                        if ([[topViewController presentedViewController] isKindOfClass:[UINavigationController class]]) {
+                            if ([[(UINavigationController*)[topViewController presentedViewController] topViewController] isMemberOfClass:schemaClass]) return YES;
+                        }
+                    }
+                    if ([topViewController presentingViewController]) {
+                        if ([[topViewController presentingViewController] isMemberOfClass:schemaClass]) {
+                            [topViewController dismissViewControllerAnimated:components.animated completion:NULL];
+                            return YES;
+                        }
+                        if ([[topViewController presentingViewController] isKindOfClass:[UINavigationController class]]) {
+                            if ([[(UINavigationController*)[topViewController presentedViewController] topViewController] isMemberOfClass:schemaClass]) {
+                                [topViewController dismissViewControllerAnimated:components.animated completion:NULL];
+                                return YES;
+                            }
+                        }
+                    }
                 }
+                
                 if (!viewControllerToShow) {
                     viewControllerToShow = topViewController;
                 }
@@ -175,6 +196,9 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                         return NO;
                     }
                     [tabBarController setSelectedIndex:components.selectedIndex];
+                    if ([[[tabBarController viewControllers] objectAtIndex:components.selectedIndex] isKindOfClass:[UINavigationController class]] && components.force) {
+                        [(UINavigationController*)[[tabBarController viewControllers] objectAtIndex:components.selectedIndex] popToRootViewControllerAnimated:components.animated];
+                    }
                 }
                 return YES;
             }
@@ -183,6 +207,9 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                 UINavigationController *navigationController = _navigationController ?: [self _rootNavigationController];
                 
                 if (!navigationController) return NO;
+                
+                if (components.force) [navigationController pushViewController:viewController animated:components.animated];
+                
                 NSInteger index = [self _indexOfClass:schemaClass inNavigationController:&navigationController animated:components.animated];
                 
                 if (index == -1) {
@@ -282,6 +309,18 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
 }
 
 - (NSInteger)_indexOfClass:(Class)schemaClass inNavigationController:(UINavigationController **)navigationController animated:(BOOL)animated {
+    // Find the index of schema class if exits.
+    NSInteger index = [(*navigationController).viewControllers indexOfObjectPassingTest:^BOOL(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isMemberOfClass:schemaClass]) {
+            *stop = YES;
+            return YES;
+        } else {
+            return NO;
+        }
+    }];
+    if (index != NSNotFound) {
+        return index;
+    }
     if ((*navigationController).presentingViewController) {
         // Handle with presenting view controller.
         if ([(*navigationController).presentingViewController isMemberOfClass:schemaClass]) {
@@ -327,15 +366,6 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
             return [self _indexOfClass:schemaClass inNavigationController:&navi animated:animated];
         }
     }
-    // Find the index of schema class if exits.
-    NSInteger index = [(*navigationController).viewControllers indexOfObjectPassingTest:^BOOL(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isMemberOfClass:schemaClass]) {
-            *stop = YES;
-            return YES;
-        } else {
-            return NO;
-        }
-    }];
-    return index;
+    return NSNotFound;
 }
 @end

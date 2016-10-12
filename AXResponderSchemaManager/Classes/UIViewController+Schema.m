@@ -57,6 +57,7 @@
     [self ax_viewDidAppear:animated];
     if (self.viewDidAppearSchema) {
         [[AXResponderSchemaManager sharedManager] openURL:self.viewDidAppearSchema];
+        self.viewDidAppearSchema = nil;
     }
 }
 

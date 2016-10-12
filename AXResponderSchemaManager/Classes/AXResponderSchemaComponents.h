@@ -35,15 +35,29 @@
  */
 NS_ASSUME_NONNULL_BEGIN
 /// Param key: `navigation`
+///
+/// @description Navigation type using push or present.
 extern NSString *const kAXResponderSchemaNavigationKey;
 /// Param key: `animated`
+///
+/// @description Animate to show view controller.
 extern NSString *const kAXResponderSchemaAnimatedKey;
 /// Param key: `selectedindex`
+///
+/// @description Selected index for tab bar controller.
 extern NSString *const kAXResponderSchemaSelectedIndexKey;
 /// Param key: `action`
+///
+/// @description UIControlEvents for `UIControl`.
 extern NSString *const kAXResponderSchemaActionKey;
 /// Param key: `class`
+///
+/// @description Class name for view controller.
 extern NSString *const kAXResponderSchemaSchemaClassKey;
+/// Param key: `force`
+///
+/// @description Force to show view controller ignoring existed view controller.
+extern NSString *const kAXResponderSchemaForceKey;
 
 typedef NS_ENUM(int64_t, AXSchemaNavigation) {
     /// Push view controllers using navigation controller.
@@ -71,8 +85,10 @@ typedef NS_ENUM(int64_t, AXSchemaNavigation) {
 @property(readonly, nonatomic) BOOL animated;
 /// Selected index for `UITabBarController` schema.
 @property(readonly, nonatomic) NSInteger selectedIndex;
+/// Force to show view controller.
+@property(readonly, nonatomic) BOOL force;
 /// Params of url.
-@property(strong, nonatomic) NSDictionary *params;
+@property(readonly, strong, nonatomic) NSDictionary *params;
 /// URL.
 @property(readonly, nonatomic) NSURL *URL;
 
