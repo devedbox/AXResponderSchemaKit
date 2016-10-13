@@ -247,7 +247,10 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                 
                 if (!navigationController) return NO;
                 
-                if (force) [navigationController pushViewController:viewController animated:animated];
+                if (force) {
+                    [navigationController pushViewController:viewController animated:animated];
+                    return YES;
+                }
                 
                 UIViewController *exitsViewController;
                 
