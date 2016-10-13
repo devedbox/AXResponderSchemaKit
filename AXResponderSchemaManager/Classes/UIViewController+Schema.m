@@ -46,9 +46,34 @@ static NSArray *subclasses;
 
 + (void)load {
     [self ax_exchangeInstanceOriginalMethod:@selector(viewDidAppear:) swizzledMethod:@selector(ax_viewDidAppear:)];
+    // Get all sub classes.
+    // Classes buffer.
+    Class *classes;
+    // Get the count of all class.
+    int count = objc_getClassList(NULL, 0);
+    
+    NSMutableArray *subclses = [NSMutableArray array];
+    
+    if (count > 0) {
+        classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * count);
+        count = objc_getClassList(classes, count);
+        for (int i = 0; i < count; i ++) {
+            Class cls = classes[i];
+            Class superClass = cls;
+            while (superClass!=NULL && !class_isMetaClass(superClass)) {
+                superClass = class_getSuperclass(superClass);
+                if (superClass == UIViewController.class) {
+                    [subclses addObject:cls];
+                    superClass = NULL;
+                }
+            }
+        }
+        subclasses = [subclses copy];
+        free(classes);
+    }
 }
 
-+ (instancetype)viewControllerForSchemaWithParams:(NSDictionary *)params {
++ (instancetype)viewControllerForSchemaWithParams:(NSDictionary **)params {
     return nil;
 }
 
@@ -60,26 +85,15 @@ static NSArray *subclasses;
 }
 
 + (Class)classForSchemaIdentifier:(NSString *)schemaIdentifier {
-    // Classes buffer.
-    Class *classes;
-    // Get the count of all class.
-    int count = objc_getClassList(NULL, 0);
-    
-    if (count > 0) {
-        classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * count);
-        count = objc_getClassList(classes, count);
-        for (int i = 0; i < count; i ++) {
-            Class cls = classes[i];
-            Class superClass = class_getSuperclass(cls);
-            if (superClass == self.class) {
-                Class _cls = [cls classForSchemaIdentifier:schemaIdentifier];
-                if (_cls != NULL) {
-                    return _cls;
-                }
+    for (int i = 0; i < subclasses.count; i ++) {
+        Class cls = subclasses[i];
+        Class superClass = class_getSuperclass(cls);
+        if (superClass == self.class) {
+            Class _cls = [cls classForSchemaIdentifier:schemaIdentifier];
+            if (_cls != NULL) {
+                return _cls;
             }
         }
-        
-        free(classes);
     }
     if ([schemaIdentifier caseInsensitiveCompare:NSStringFromClass(self.class)] == NSOrderedSame) {
         return self.class;

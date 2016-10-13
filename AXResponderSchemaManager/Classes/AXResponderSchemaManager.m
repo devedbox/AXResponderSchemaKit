@@ -127,7 +127,12 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
     if ((schemaClass == NULL || ![UIApplication sharedApplication].keyWindow.rootViewController) && ![components.identifier isEqualToString:kAXResponderSchemaTabBarControllerIdentifier]) return NO;
     // Handle the moudle.
     if ([components.module isEqualToString:kAXResponderSchemaModuleUIViewController]) { // View controller -> Show and hide.
-        if ([[self _topViewController] isMemberOfClass:schemaClass]) return NO;
+        BOOL force = NO;
+        if (components.params[kAXResponderSchemaForceKey]) {
+            force = components.force;
+        }
+        
+        if ([[self _topViewController] isMemberOfClass:schemaClass] && !force) return NO;
         // Get the new view controller with the methods.
         if (![schemaClass isSubclassOfClass:UIViewController.class]) {
             return NO;
@@ -136,8 +141,8 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
         NSMutableDictionary *params = [components.params mutableCopy];
         if (completionURL) [params setObject:completionURL forKey:kAXResponderSchemaCompletionURLKey];
         // Get the view controller.
-        UIViewController *viewController = [schemaClass viewControllerForSchemaWithParams:params]?:[[schemaClass alloc] init];
-        
+        UIViewController *viewController = [schemaClass viewControllerForSchemaWithParams:&params]?:[[schemaClass alloc] init];
+        [components setValue:params forKeyPath:@"params"];
         viewController.viewDidAppearSchema = schema;
         
         UIViewController *viewControllerToShow = _navigationController?:_viewController;
@@ -145,10 +150,6 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
         BOOL animated = YES;
         if (components.params[kAXResponderSchemaAnimatedKey]) {
             animated = components.animated;
-        }
-        BOOL force = NO;
-        if (components.params[kAXResponderSchemaForceKey]) {
-            force = components.force;
         }
         
         // Get the navitation.
@@ -198,7 +199,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                 if (!viewControllerToShow) {
                     viewControllerToShow = topViewController;
                 }
-                if ([viewController isKindOfClass:UINavigationController.class]) { // Presented with nagigation controller.
+                if ([viewController isKindOfClass:UINavigationController.class] || [viewController isKindOfClass:UIAlertController.class]) { // Presented with nagigation controller.
                     [viewControllerToShow presentViewController:viewController animated:animated completion:NULL];
                 } else {
                     // Get navigation class.

@@ -33,7 +33,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-+ (instancetype)viewControllerForSchemaWithParams:(NSDictionary *)params {
++ (instancetype)viewControllerForSchemaWithParams:(NSDictionary **)params {
     return [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"kViewController2Identifier"];
 }
 

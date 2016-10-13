@@ -21,6 +21,7 @@
 		DC29A99A1DACF7050073E8AF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A98A1DACF7050073E8AF /* ViewController.m */; };
 		DC29A99B1DACF7050073E8AF /* ViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A98C1DACF7050073E8AF /* ViewController1.m */; };
 		DC29A99C1DACF7050073E8AF /* ViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A98E1DACF7050073E8AF /* ViewController2.m */; };
+		DCA640D51DAF666C005FC2DE /* UIAlertController+Schema.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA640D41DAF666C005FC2DE /* UIAlertController+Schema.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,8 @@
 		DC9A38901DACA0EF003125FF /* AXResponderSchemaManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AXResponderSchemaManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC9A38A91DACA0F0003125FF /* AXResponderSchemaManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AXResponderSchemaManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC9A38B41DACA0F0003125FF /* AXResponderSchemaManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AXResponderSchemaManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCA640D31DAF666C005FC2DE /* UIAlertController+Schema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Schema.h"; sourceTree = "<group>"; };
+		DCA640D41DAF666C005FC2DE /* UIAlertController+Schema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Schema.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +127,8 @@
 			isa = PBXGroup;
 			children = (
 				DC29A97E1DACF7050073E8AF /* AXResponderSchemaKit.h */,
+				DCA640D31DAF666C005FC2DE /* UIAlertController+Schema.h */,
+				DCA640D41DAF666C005FC2DE /* UIAlertController+Schema.m */,
 				DC29A9811DACF7050073E8AF /* UIViewController+Schema.h */,
 				DC29A9821DACF7050073E8AF /* UIViewController+Schema.m */,
 				DC29A97F1DACF7050073E8AF /* AXResponderSchemaManager.h */,
@@ -299,6 +304,7 @@
 				DC29A99C1DACF7050073E8AF /* ViewController2.m in Sources */,
 				DC29A9941DACF7050073E8AF /* AXResponderSchemaManager.m in Sources */,
 				DC29A99B1DACF7050073E8AF /* ViewController1.m in Sources */,
+				DCA640D51DAF666C005FC2DE /* UIAlertController+Schema.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

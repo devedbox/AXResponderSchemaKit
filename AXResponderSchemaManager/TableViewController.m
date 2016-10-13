@@ -57,8 +57,11 @@
         case 2:
             [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:@"axviewcontrollerschema://viewcontroller/show2?navigation=1&animated=1&class=ViewController2"]];
             break;
-        default:
+        case 3:
             [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"axviewcontrollerschema://control/switch?navigation=0&animated=1&action=%@", @(1 << 12)]]];
+            break;
+        default:
+            [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"axviewcontrollerschema://viewcontroller/alert?title=%@&message=%@", [@"测试" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], [@"这是一条测试消息" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]]];
             break;
     }
 }
