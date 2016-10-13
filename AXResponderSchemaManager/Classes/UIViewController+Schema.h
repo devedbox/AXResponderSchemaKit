@@ -37,10 +37,26 @@ extern NSString *_Nonnull const kAXResponderSchemaCompletionURLKey;
 ///
 /// @return a new view controller.
 + (nullable instancetype)viewControllerForSchemaWithParams:(NSDictionary *_Nullable)params;
+/// Dynamically handle the param form a schema.
+///
+/// @param params params of the url object.
+///
+- (void)resolveSchemaWithParams:(NSDictionary *_Nullable)params;
 /// Get the class of navigation controller.
 ///
 /// @return class of navigation controller.
 + (nullable Class)classForNavigationController;
+/// Get the class for the schema identifier.
+///
+/// @discusstion You can custom the implementation of the method and return the class for a specific schema identifier.
+///              Or you can do nothing be pass the string of view controller class to this method, and this method will
+///              compare the schema identifier with the string from current class using `NSCaseInsensitiveSearch` option
+///              to get the class identifier.
+///
+/// @param schemaIdentifier identifier of schema.
+///
+/// @return a class of view controller.
++ (nullable Class)classForSchemaIdentifier:(NSString *_Nonnull)schemaIdentifier;
 /// Get the instance of view controller for the control identifier.
 ///
 /// @param controlIdentifier a control identifier.

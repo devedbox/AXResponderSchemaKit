@@ -26,6 +26,9 @@
 #import "UIViewController+Schema.h"
 #import "AXResponderSchemaManager.h"
 #import <objc/runtime.h>
+#import <mach/mach_time.h>
+
+static NSArray *subclasses;
 
 @implementation UIViewController (Schema)
 
@@ -49,8 +52,39 @@
     return nil;
 }
 
+- (void)resolveSchemaWithParams:(NSDictionary *)params {
+}
+
 + (Class)classForNavigationController {
     return UINavigationController.class;
+}
+
++ (Class)classForSchemaIdentifier:(NSString *)schemaIdentifier {
+    // Classes buffer.
+    Class *classes;
+    // Get the count of all class.
+    int count = objc_getClassList(NULL, 0);
+    
+    if (count > 0) {
+        classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * count);
+        count = objc_getClassList(classes, count);
+        for (int i = 0; i < count; i ++) {
+            Class cls = classes[i];
+            Class superClass = class_getSuperclass(cls);
+            if (superClass == self.class) {
+                Class _cls = [cls classForSchemaIdentifier:schemaIdentifier];
+                if (_cls != NULL) {
+                    return _cls;
+                }
+            }
+        }
+        
+        free(classes);
+    }
+    if ([schemaIdentifier caseInsensitiveCompare:NSStringFromClass(self.class)] == NSOrderedSame) {
+        return self.class;
+    }
+    return NULL;
 }
 
 - (void)ax_viewDidAppear:(BOOL)animated {

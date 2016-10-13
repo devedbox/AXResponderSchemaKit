@@ -16,6 +16,13 @@
 
 @implementation ViewController2
 
++ (Class)classForSchemaIdentifier:(NSString *)schemaIdentifier {
+    if ([schemaIdentifier  isEqual: @"viewcontroller2"]) {
+        return self;
+    }
+    return [super classForSchemaIdentifier:schemaIdentifier];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

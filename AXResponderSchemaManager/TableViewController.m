@@ -8,11 +8,19 @@
 
 #import "TableViewController.h"
 #import "AXResponderSchemaManager.h"
+#import "UIViewController+Schema.h"
 
 @interface TableViewController ()
 @end
 
 @implementation TableViewController
+
++ (Class)classForSchemaIdentifier:(NSString *)schemaIdentifier {
+    if ([schemaIdentifier  isEqual: @"tableview"]) {
+        return self;
+    }
+    return [super classForSchemaIdentifier:schemaIdentifier];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,8 +37,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    NSLog(@"%s", __FUNCTION__);
 }
 
 - (void)didReceiveMemoryWarning {

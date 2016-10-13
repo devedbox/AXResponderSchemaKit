@@ -48,7 +48,7 @@
             <objects>
                 <navigationController id="4qT-v8-WS3" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="G4u-bU-pe3"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6YJ-gF-Xoh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6YJ-gF-Xoh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

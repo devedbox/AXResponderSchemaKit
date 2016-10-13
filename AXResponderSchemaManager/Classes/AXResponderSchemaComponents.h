@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString *const kAXResponderSchemaNavigationKey;
 /// Param key: `animated`
 ///
-/// @description Animate to show view controller.
+/// @description Animate to show view controller. Default is YES.
 extern NSString *const kAXResponderSchemaAnimatedKey;
 /// Param key: `selectedindex`
 ///
@@ -56,7 +56,7 @@ extern NSString *const kAXResponderSchemaActionKey;
 extern NSString *const kAXResponderSchemaSchemaClassKey;
 /// Param key: `force`
 ///
-/// @description Force to show view controller ignoring existed view controller.
+/// @description Force to show view controller ignoring existed view controller. Default is NO.
 extern NSString *const kAXResponderSchemaForceKey;
 
 typedef NS_ENUM(int64_t, AXSchemaNavigation) {
@@ -69,14 +69,14 @@ typedef NS_ENUM(int64_t, AXSchemaNavigation) {
 };
 
 @interface AXResponderSchemaComponents : NSObject
-/// Class of schema.
-@property(nullable, readonly, nonatomic) Class schemaClass;
 /// Scheme of the manager.
 @property(nullable, readonly, nonatomic) NSString *scheme;
 /// Moudle of manager to handle with.
 @property(nullable, readonly, nonatomic) NSString *module;
 /// Class of the module.
 @property(nullable, readonly, nonatomic) NSString *identifier;
+/// Class of schema.
+@property(nullable, readonly, nonatomic) NSString *schemaClassIdentifier;
 /// Navigation type for `viewcontroller` module.
 @property(readonly, nonatomic) AXSchemaNavigation navigation;
 /// Events type for `control` module.

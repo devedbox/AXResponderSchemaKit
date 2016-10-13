@@ -56,10 +56,8 @@ NSString *const kAXResponderSchemaForceKey = @"force";
     return [_params[kAXResponderSchemaForceKey] boolValue];
 }
 
-- (Class)schemaClass {
-    NSString *classIdentifier = _params[kAXResponderSchemaSchemaClassKey];
-    if (!classIdentifier) return NULL;
-    return NSClassFromString(classIdentifier);
+- (NSString *)schemaClassIdentifier {
+    return _params[kAXResponderSchemaSchemaClassKey];
 }
 
 - (AXSchemaNavigation)navigation {

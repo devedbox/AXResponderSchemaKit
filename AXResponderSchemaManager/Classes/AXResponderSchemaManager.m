@@ -109,7 +109,19 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
 }
 
 - (BOOL)_openSchemaWithSchemaComponents:(AXResponderSchemaComponents *)components completion:(NSURL *)completionURL viewDidAppearSchema:(NSURL *)schema {
-    Class schemaClass = components.schemaClass ?: [self.class classForSchema:components.identifier];
+    Class schemaClass = NULL;
+    
+    if (components.schemaClassIdentifier) {// Get the specific class for class identifier in url params.
+        schemaClass = [UIViewController classForSchemaIdentifier:components.schemaClassIdentifier];
+        if (schemaClass == NULL) {// Get the class for the schema identifier.
+            schemaClass = [UIViewController classForSchemaIdentifier:components.identifier];
+        }
+    } else {// Get the class for the schema identifier.
+        schemaClass = [UIViewController classForSchemaIdentifier:components.identifier];
+    }
+    if (schemaClass == NULL) {
+        schemaClass = [self.class classForSchema:components.identifier];
+    }
     
     if (class_isMetaClass(schemaClass)) return NO;
     if ((schemaClass == NULL || ![UIApplication sharedApplication].keyWindow.rootViewController) && ![components.identifier isEqualToString:kAXResponderSchemaTabBarControllerIdentifier]) return NO;
@@ -130,30 +142,53 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
         
         UIViewController *viewControllerToShow = _navigationController?:_viewController;
         
+        BOOL animated = YES;
+        if (components.params[kAXResponderSchemaAnimatedKey]) {
+            animated = components.animated;
+        }
+        BOOL force = NO;
+        if (components.params[kAXResponderSchemaForceKey]) {
+            force = components.force;
+        }
+        
         // Get the navitation.
         switch (components.navigation) {
             case AXSchemaNavigationPresent: {
                 UIViewController *topViewController = [self _topViewController];
                 
-                if (!components.force) {
-                    if ([topViewController isMemberOfClass:schemaClass]) return YES;
+                if (!force) {
+                    if ([topViewController isMemberOfClass:schemaClass]) {
+                        [topViewController resolveSchemaWithParams:components.params];
+                        return YES;
+                    }
                     if ([topViewController isKindOfClass:[UINavigationController class]]) {
-                        if ([[(UINavigationController*)topViewController topViewController] isMemberOfClass:schemaClass]) return YES;
+                        if ([[(UINavigationController*)topViewController topViewController] isMemberOfClass:schemaClass]) {
+                            [[(UINavigationController*)topViewController topViewController] resolveSchemaWithParams:components.params];
+                            return YES;
+                        }
                     }
                     if ([topViewController presentedViewController]) {
-                        if ([[topViewController presentedViewController] isMemberOfClass:schemaClass]) return YES;
+                        if ([[topViewController presentedViewController] isMemberOfClass:schemaClass]) {
+                            [[topViewController presentedViewController] resolveSchemaWithParams:components.params];
+                            return YES;
+                        }
                         if ([[topViewController presentedViewController] isKindOfClass:[UINavigationController class]]) {
-                            if ([[(UINavigationController*)[topViewController presentedViewController] topViewController] isMemberOfClass:schemaClass]) return YES;
+                            if ([[(UINavigationController*)[topViewController presentedViewController] topViewController] isMemberOfClass:schemaClass]) {
+                                [[(UINavigationController*)[topViewController presentedViewController] topViewController] resolveSchemaWithParams:components.params];
+                                return YES;
+                            }
                         }
                     }
                     if ([topViewController presentingViewController]) {
                         if ([[topViewController presentingViewController] isMemberOfClass:schemaClass]) {
-                            [topViewController dismissViewControllerAnimated:components.animated completion:NULL];
+                            [topViewController dismissViewControllerAnimated:animated completion:NULL];
+                            [[topViewController presentingViewController] resolveSchemaWithParams:components.params];
                             return YES;
                         }
                         if ([[topViewController presentingViewController] isKindOfClass:[UINavigationController class]]) {
                             if ([[(UINavigationController*)[topViewController presentedViewController] topViewController] isMemberOfClass:schemaClass]) {
-                                [topViewController dismissViewControllerAnimated:components.animated completion:NULL];
+                                [topViewController dismissViewControllerAnimated:animated completion:NULL];
+                                [[(UINavigationController*)[topViewController presentedViewController] topViewController] resolveSchemaWithParams:components.params];
                                 return YES;
                             }
                         }
@@ -164,7 +199,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     viewControllerToShow = topViewController;
                 }
                 if ([viewController isKindOfClass:UINavigationController.class]) { // Presented with nagigation controller.
-                    [viewControllerToShow presentViewController:viewController animated:components.animated completion:NULL];
+                    [viewControllerToShow presentViewController:viewController animated:animated completion:NULL];
                 } else {
                     // Get navigation class.
                     Class navigationClass = class_respondsToSelector(schemaClass, @selector(classForNavigationController))?[schemaClass classForNavigationController]:_navigationControllClass?:UINavigationController.class;
@@ -175,7 +210,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     }
                     // Initialize a navigation controller.
                     UINavigationController *navigationController = [[navigationClass alloc] initWithRootViewController:viewController];
-                    [viewControllerToShow presentViewController:navigationController animated:components.animated completion:NULL];
+                    [viewControllerToShow presentViewController:navigationController animated:animated completion:NULL];
                 }
                 return YES;
             }
@@ -195,9 +230,12 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     if (components.selectedIndex > tabBarController.viewControllers.count-1) {
                         return NO;
                     }
+                    
+                    [tabBarController resolveSchemaWithParams:components.params];
+                    
                     [tabBarController setSelectedIndex:components.selectedIndex];
-                    if ([[[tabBarController viewControllers] objectAtIndex:components.selectedIndex] isKindOfClass:[UINavigationController class]] && components.force) {
-                        [(UINavigationController*)[[tabBarController viewControllers] objectAtIndex:components.selectedIndex] popToRootViewControllerAnimated:components.animated];
+                    if ([[[tabBarController viewControllers] objectAtIndex:components.selectedIndex] isKindOfClass:[UINavigationController class]] && force) {
+                        [(UINavigationController*)[[tabBarController viewControllers] objectAtIndex:components.selectedIndex] popToRootViewControllerAnimated:animated];
                     }
                 }
                 return YES;
@@ -208,16 +246,20 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                 
                 if (!navigationController) return NO;
                 
-                if (components.force) [navigationController pushViewController:viewController animated:components.animated];
+                if (force) [navigationController pushViewController:viewController animated:animated];
                 
-                NSInteger index = [self _indexOfClass:schemaClass inNavigationController:&navigationController animated:components.animated];
+                UIViewController *exitsViewController;
+                
+                NSInteger index = [self _indexOfClass:schemaClass inNavigationController:&navigationController exists:&exitsViewController animated:animated];
                 
                 if (index == -1) {
-                    [navigationController dismissViewControllerAnimated:components.animated completion:NULL];
+                    [navigationController dismissViewControllerAnimated:animated completion:NULL];
+                    [exitsViewController resolveSchemaWithParams:components.params];
                 } else if (index == NSNotFound) {
-                    [navigationController pushViewController:viewController animated:components.animated];
+                    [navigationController pushViewController:viewController animated:animated];
                 } else {
-                    [navigationController popToViewController:navigationController.viewControllers[index] animated:components.animated];
+                    [navigationController popToViewController:navigationController.viewControllers[index] animated:animated];
+                    [exitsViewController resolveSchemaWithParams:components.params];
                 }
                 return YES;
             }
@@ -308,7 +350,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
     }
 }
 
-- (NSInteger)_indexOfClass:(Class)schemaClass inNavigationController:(UINavigationController **)navigationController animated:(BOOL)animated {
+- (NSInteger)_indexOfClass:(Class)schemaClass inNavigationController:(UINavigationController **)navigationController exists:(UIViewController **)viewController animated:(BOOL)animated {
     // Find the index of schema class if exits.
     NSInteger index = [(*navigationController).viewControllers indexOfObjectPassingTest:^BOOL(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isMemberOfClass:schemaClass]) {
@@ -319,12 +361,14 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
         }
     }];
     if (index != NSNotFound) {
+        (*viewController) = [(*navigationController).viewControllers objectAtIndex:index];
         return index;
     }
     if ((*navigationController).presentingViewController) {
         // Handle with presenting view controller.
         if ([(*navigationController).presentingViewController isMemberOfClass:schemaClass]) {
             // If current top view controller is member of schema class, return -1 to dismiss the presented controller.
+            (*viewController) = (*navigationController).presentingViewController;
             return -1;
         } else if ([(*navigationController).presentingViewController isKindOfClass:UINavigationController.class]) {
             // Get navigation controller.
@@ -334,7 +378,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
             // Set the navigation controller blow.
             *navigationController = navi;
             // Call mthods again.
-            return [self _indexOfClass:schemaClass inNavigationController:&navi animated:animated];
+            return [self _indexOfClass:schemaClass inNavigationController:&navi exists:viewController animated:animated];
             // Handle with tab bar controller.
         } else if ([(*navigationController).presentingViewController isKindOfClass:UITabBarController.class]) {
             // Get tab bar controller.
@@ -344,7 +388,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                 // Get the selected navigation controller.
                 UINavigationController *navi = (UINavigationController *)tabBarController.selectedViewController;
                 // Get the index of schema in the selected navigation controller.
-                NSInteger index = [self _indexOfClass:schemaClass inNavigationController:&navi animated:animated];
+                NSInteger index = [self _indexOfClass:schemaClass inNavigationController:&navi exists:viewController animated:animated];
                 // Verify index of schema class.
                 if (index != NSNotFound) {
                     // If index found, dismiss the navigation controller.
@@ -363,7 +407,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
             // Set the new.
             *navigationController = navi;
             // Call self.
-            return [self _indexOfClass:schemaClass inNavigationController:&navi animated:animated];
+            return [self _indexOfClass:schemaClass inNavigationController:&navi exists:viewController animated:animated];
         }
     }
     return NSNotFound;

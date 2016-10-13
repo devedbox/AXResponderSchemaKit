@@ -65,6 +65,10 @@ extern NSString *const kAXResponderSchemaTabBarControllerIdentifier;
 + (void)unregisterSchema:(NSString *)schemaIdentifier;
 /// Get the class of the schema identifier.
 ///
+/// @discusstion The manager will check from the view controller fisrt (UIViewController+Schema) to get the class.
+///              If the class from view controller is NULL, then manager will get the class from the configuration
+///              location.
+///
 /// @param schemaIdentifier schema identifier registered.
 ///
 /// @return Class for the schema. Can be NULL.

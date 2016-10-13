@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface AXViewControllerShemaTests : XCTestCase
+@interface AXResponderSchemaManagerTests : XCTestCase
 
 @end
 
-@implementation AXViewControllerShemaTests
+@implementation AXResponderSchemaManagerTests
 
 - (void)setUp {
     [super setUp];

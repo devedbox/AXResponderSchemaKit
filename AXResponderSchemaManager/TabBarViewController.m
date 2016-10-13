@@ -8,12 +8,19 @@
 
 #import "TabBarViewController.h"
 #import "AXResponderSchemaManager.h"
+#import "UIViewController+Schema.h"
 
 @interface TabBarViewController ()
 
 @end
 
 @implementation TabBarViewController
++ (Class)classForSchemaIdentifier:(NSString *)schemaIdentifier {
+    if ([schemaIdentifier  isEqual: @"tabbar"]) {
+        return self;
+    }
+    return [super classForSchemaIdentifier:schemaIdentifier];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
