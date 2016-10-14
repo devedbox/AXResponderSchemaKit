@@ -29,3 +29,4 @@
 #import "AXResponderSchemaManager.h"
 #import "AXResponderSchemaComponents.h"
 #import "UIViewController+Schema.h"
+#import "UIAlertController+Schema.h"

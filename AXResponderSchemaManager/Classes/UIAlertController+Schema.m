@@ -24,6 +24,7 @@
 //  SOFTWARE.
 
 #import "UIAlertController+Schema.h"
+#import "AXResponderSchemaConstant.h"
 #import "AXResponderSchemaComponents.h"
 
 NSString *const kAXResponderSchemaAlertSchemaTitleKey = @"title";
@@ -49,7 +50,7 @@ NSString *const kAXResponderSchemaAlertSchemaButtonTitleKey = @"button";
     }
 #pragma clang diagnostic pop
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:(*params)[kAXResponderSchemaAlertSchemaStyleKey]?[(*params)[kAXResponderSchemaAlertSchemaStyleKey] integerValue]:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:button?:@"确定" style:UIAlertActionStyleCancel handler:NULL]];
+    [alert addAction:[UIAlertAction actionWithTitle:button?:AXResponderSchemaManagerLocalizedString(@"confirm", @"Confirm") style:UIAlertActionStyleCancel handler:NULL]];
     if ((*params)[kAXResponderSchemaNavigationKey]) {
         AXSchemaNavigation navigation = [(*params)[kAXResponderSchemaNavigationKey] integerValue];
         if (navigation != AXSchemaNavigationPresent) {
@@ -66,7 +67,7 @@ NSString *const kAXResponderSchemaAlertSchemaButtonTitleKey = @"button";
 }
 
 + (nullable Class)classForSchemaIdentifier:(NSString *_Nonnull)schemaIdentifier {
-    if ([schemaIdentifier isEqualToString:@"alert"]) {
+    if ([[NSPredicate predicateWithFormat:@"SELF MATCHES[cd] 'alert'"] evaluateWithObject:schemaIdentifier]) {
         return self.class;
     }
     return [super classForSchemaIdentifier:schemaIdentifier];

@@ -26,7 +26,6 @@
 #import "UIViewController+Schema.h"
 #import "AXResponderSchemaManager.h"
 #import <objc/runtime.h>
-#import <mach/mach_time.h>
 
 static NSArray *subclasses;
 
@@ -99,6 +98,10 @@ static NSArray *subclasses;
         return self.class;
     }
     return NULL;
+}
+
++ (BOOL)allowsForSchameIdentifier:(NSString *)schemaIdentifier {
+    return YES;
 }
 
 - (void)ax_viewDidAppear:(BOOL)animated {

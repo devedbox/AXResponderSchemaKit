@@ -1,0 +1,57 @@
+
+/* Class = "UILabel"; text = "Present"; ObjectID = "0cA-m2-ANd"; */
+"0cA-m2-ANd.text" = "Present";
+
+/* Class = "UILabel"; text = "axviewcontrollerschema://viewcontroller/viewcontroller"; ObjectID = "1o7-yB-8Mc"; */
+"1o7-yB-8Mc.text" = "axviewcontrollerschema://viewcontroller/viewcontroller";
+
+/* Class = "UILabel"; text = "axviewcontrollerschema://viewcontroller/show2?navigation=1&animated=1&class=ViewController2"; ObjectID = "5f3-of-c5h"; */
+"5f3-of-c5h.text" = "axviewcontrollerschema://viewcontroller/show2?navigation=1&animated=1&class=ViewController2";
+
+/* Class = "UIButton"; normalTitle = "axviewcontrollerschema://control/switch?navigation=0&animated=1&action=64"; ObjectID = "6gg-rZ-WuS"; */
+"6gg-rZ-WuS.normalTitle" = "axviewcontrollerschema://control/switch?navigation=0&animated=1&action=64";
+
+/* Class = "UIButton"; normalTitle = "axviewcontrollerschema://viewcontroller/table?navigation=0&animated=1&class=TableViewController"; ObjectID = "D5O-n7-epE"; */
+"D5O-n7-epE.normalTitle" = "axviewcontrollerschema://viewcontroller/table?navigation=0&animated=1&class=TableViewController";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "G4u-bU-pe3"; */
+"G4u-bU-pe3.title" = "Item";
+
+/* Class = "UILabel"; text = "None"; ObjectID = "H27-9Z-Dtc"; */
+"H27-9Z-Dtc.text" = "None";
+
+/* Class = "UILabel"; text = "axviewcontrollerschema://control/switch?navigation=0&animated=1&action=64"; ObjectID = "IQ2-zo-MDR"; */
+"IQ2-zo-MDR.text" = "axviewcontrollerschema://control/switch?navigation=0&animated=1&action=64";
+
+/* Class = "UIButton"; normalTitle = "axviewcontrollerschema://viewcontroller/show2?navigation=1&animated=1&class=ViewController2"; ObjectID = "K6s-yz-f5x"; */
+"K6s-yz-f5x.normalTitle" = "axviewcontrollerschema://viewcontroller/show2?navigation=1&animated=1&class=ViewController2";
+
+/* Class = "UILabel"; text = "axviewcontrollerschema://viewcontroller/viewcontroller1?navigation=0&animated=1"; ObjectID = "VH5-Ym-d15"; */
+"VH5-Ym-d15.text" = "axviewcontrollerschema://viewcontroller/viewcontroller1?navigation=0&animated=1";
+
+/* Class = "UILabel"; text = "Tab bar controller"; ObjectID = "We5-GR-sXf"; */
+"We5-GR-sXf.text" = "Tab bar controller";
+
+/* Class = "UIButton"; normalTitle = "axviewcontrollerschema://viewcontroller/viewcontroller1?navigation=0&animated=1"; ObjectID = "cNq-3e-NrD"; */
+"cNq-3e-NrD.normalTitle" = "axviewcontrollerschema://viewcontroller/viewcontroller1?navigation=0&animated=1";
+
+/* Class = "UILabel"; text = "Action"; ObjectID = "fLw-7j-x7c"; */
+"fLw-7j-x7c.text" = "Action";
+
+/* Class = "UILabel"; text = "axviewcontrollerschema://viewcontroller/tabbar?navigation=2&selectedindex=1"; ObjectID = "hGs-ty-MPu"; */
+"hGs-ty-MPu.text" = "axviewcontrollerschema://viewcontroller/tabbar?navigation=2&selectedindex=1";
+
+/* Class = "UITabBarItem"; title = "Item 2"; ObjectID = "ieN-aY-rDW"; */
+"ieN-aY-rDW.title" = "Item 2";
+
+/* Class = "UILabel"; text = "Navigation push"; ObjectID = "ksk-RX-0C2"; */
+"ksk-RX-0C2.text" = "Navigation push";
+
+/* Class = "UILabel"; text = "Alert"; ObjectID = "qYt-q6-z6Z"; */
+"qYt-q6-z6Z.text" = "Alert";
+
+/* Class = "UILabel"; text = "axviewcontrollerschema://viewcontroller/alErT?title=测试&message=这是一条测试消息"; ObjectID = "sko-ys-ieO"; */
+"sko-ys-ieO.text" = "axviewcontrollerschema://viewcontroller/alErT?title=测试&message=这是一条测试消息";
+
+/* Class = "UINavigationItem"; title = "AXResponderSchemaManager"; ObjectID = "wkj-Uv-Adg"; */
+"wkj-Uv-Adg.title" = "AXResponderSchemaManager";

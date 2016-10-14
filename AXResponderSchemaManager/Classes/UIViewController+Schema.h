@@ -57,6 +57,12 @@ extern NSString *_Nonnull const kAXResponderSchemaCompletionURLKey;
 ///
 /// @return a class of view controller.
 + (nullable Class)classForSchemaIdentifier:(NSString *_Nonnull)schemaIdentifier;
+/// Allows the be handled with a specfic schema identifier. Default is YES.
+///
+/// @param schemaIdentifier  identifier of schema.
+///
+/// @return a result to be allowed.
++ (BOOL)allowsForSchameIdentifier:(NSString *_Nonnull)schemaIdentifier;
 /// Get the instance of view controller for the control identifier.
 ///
 /// @param controlIdentifier a control identifier.

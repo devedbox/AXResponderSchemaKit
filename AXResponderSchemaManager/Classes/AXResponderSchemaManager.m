@@ -24,6 +24,7 @@
 //  SOFTWARE.
 
 #import "AXResponderSchemaManager.h"
+#import "AXResponderSchemaConstant.h"
 #import "AXResponderSchemaComponents.h"
 #import "UIViewController+Schema.h"
 #import <objc/runtime.h>
@@ -121,6 +122,8 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
     }
     if (schemaClass == NULL) {
         schemaClass = [self.class classForSchema:components.identifier];
+    } else {
+        if (![schemaClass allowsForSchameIdentifier:components.identifier]) return NO;
     }
     
     if (class_isMetaClass(schemaClass)) return NO;
@@ -141,9 +144,13 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
         NSMutableDictionary *params = [components.params mutableCopy];
         if (completionURL) [params setObject:completionURL forKey:kAXResponderSchemaCompletionURLKey];
         // Get the view controller.
-        UIViewController *viewController = [schemaClass viewControllerForSchemaWithParams:&params]?:[[schemaClass alloc] init];
+        UIViewController *viewController = [schemaClass viewControllerForSchemaWithParams:&params];
+        
         [components setValue:params forKeyPath:@"params"];
-        viewController.viewDidAppearSchema = schema;
+        
+        if (![viewController isMemberOfClass:UIAlertController.class]) {
+            viewController.viewDidAppearSchema = schema;
+        }
         
         UIViewController *viewControllerToShow = _navigationController?:_viewController;
         
@@ -151,6 +158,29 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
         if (components.params[kAXResponderSchemaAnimatedKey]) {
             animated = components.animated;
         }
+        
+        void(^_alertIssue)() = ^() {
+            // Show the alert.
+            [components setValue:@"alert" forKeyPath:@"identifier"];
+            // Set title.
+            NSString *title = AXResponderSchemaManagerLocalizedString(@"openfailed", @"Openfailed");
+            // Set message.
+            NSString *message = AXResponderSchemaManagerLocalizedString(@"openissue", @"Openissue");
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_9_0) {
+                title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                message = [message stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];;
+            } else {
+                NSString *charactersToEscape = @"?!@#$^&%*+,:;='\"`<>()[]{}/\\| ";
+                NSCharacterSet *allowedCharacters = [[NSCharacterSet characterSetWithCharactersInString:charactersToEscape] invertedSet];
+                title = [title stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
+                message = [message stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
+            }
+#pragma clang diagnostic pop
+            // Open alert controller.
+            [self openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@://viewcontroller/alert?title=%@&message=%@", components.scheme, title, message]]];
+        };
         
         // Get the navitation.
         switch (components.navigation) {
@@ -199,6 +229,13 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                 if (!viewControllerToShow) {
                     viewControllerToShow = topViewController;
                 }
+                
+                // Show the alert.
+                if (!viewController) {
+                    _alertIssue();
+                    return NO;
+                }
+                
                 if ([viewController isKindOfClass:UINavigationController.class] || [viewController isKindOfClass:UIAlertController.class]) { // Presented with nagigation controller.
                     [viewControllerToShow presentViewController:viewController animated:animated completion:NULL];
                 } else {
@@ -248,6 +285,10 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                 if (!navigationController) return NO;
                 
                 if (force) {
+                    if (!viewController) {
+                        _alertIssue();
+                        return NO;
+                    }
                     [navigationController pushViewController:viewController animated:animated];
                     return YES;
                 }
@@ -260,6 +301,10 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     [navigationController dismissViewControllerAnimated:animated completion:NULL];
                     [exitsViewController resolveSchemaWithParams:components.params];
                 } else if (index == NSNotFound) {
+                    if (!viewController) {
+                        _alertIssue();
+                        return NO;
+                    }
                     [navigationController pushViewController:viewController animated:animated];
                 } else {
                     [navigationController popToViewController:navigationController.viewControllers[index] animated:animated];

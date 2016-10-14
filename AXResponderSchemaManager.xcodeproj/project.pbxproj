@@ -22,6 +22,7 @@
 		DC29A99B1DACF7050073E8AF /* ViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A98C1DACF7050073E8AF /* ViewController1.m */; };
 		DC29A99C1DACF7050073E8AF /* ViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A98E1DACF7050073E8AF /* ViewController2.m */; };
 		DCA640D51DAF666C005FC2DE /* UIAlertController+Schema.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA640D41DAF666C005FC2DE /* UIAlertController+Schema.m */; };
+		DCFA60E71DB138E3000A0681 /* AXResponderSchemaManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DCFA60E61DB138E3000A0681 /* AXResponderSchemaManager.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,10 @@
 		DC9A38B41DACA0F0003125FF /* AXResponderSchemaManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AXResponderSchemaManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCA640D31DAF666C005FC2DE /* UIAlertController+Schema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Schema.h"; sourceTree = "<group>"; };
 		DCA640D41DAF666C005FC2DE /* UIAlertController+Schema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Schema.m"; sourceTree = "<group>"; };
+		DCB389121DB1433F007EDD39 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		DCFA60E01DB138B2000A0681 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		DCFA60E61DB138E3000A0681 /* AXResponderSchemaManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AXResponderSchemaManager.bundle; sourceTree = "<group>"; };
+		DCFA60E81DB13953000A0681 /* AXResponderSchemaConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXResponderSchemaConstant.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				DC29A97E1DACF7050073E8AF /* AXResponderSchemaKit.h */,
+				DCFA60E81DB13953000A0681 /* AXResponderSchemaConstant.h */,
 				DCA640D31DAF666C005FC2DE /* UIAlertController+Schema.h */,
 				DCA640D41DAF666C005FC2DE /* UIAlertController+Schema.m */,
 				DC29A9811DACF7050073E8AF /* UIViewController+Schema.h */,
@@ -135,6 +141,7 @@
 				DC29A9801DACF7050073E8AF /* AXResponderSchemaManager.m */,
 				DC29A97C1DACF7050073E8AF /* AXResponderSchemaComponents.h */,
 				DC29A97D1DACF7050073E8AF /* AXResponderSchemaComponents.m */,
+				DCFA60E61DB138E3000A0681 /* AXResponderSchemaManager.bundle */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -248,6 +255,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = DC9A38871DACA0EF003125FF;
 			productRefGroup = DC9A38911DACA0EF003125FF /* Products */;
@@ -268,6 +276,7 @@
 			files = (
 				DC29A9961DACF7050073E8AF /* Info.plist in Resources */,
 				DC29A9921DACF7050073E8AF /* Main.storyboard in Resources */,
+				DCFA60E71DB138E3000A0681 /* AXResponderSchemaManager.bundle in Resources */,
 				DC29A9901DACF7050073E8AF /* Assets.xcassets in Resources */,
 				DC29A9911DACF7050073E8AF /* LaunchScreen.storyboard in Resources */,
 			);
@@ -342,6 +351,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				DC29A9781DACF7050073E8AF /* Base */,
+				DCFA60E01DB138B2000A0681 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -350,6 +360,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				DC29A97A1DACF7050073E8AF /* Base */,
+				DCB389121DB1433F007EDD39 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -361,6 +372,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -409,6 +421,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
