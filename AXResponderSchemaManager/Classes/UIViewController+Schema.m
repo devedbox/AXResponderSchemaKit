@@ -94,7 +94,7 @@ static NSArray *subclasses;
             }
         }
     }
-    if ([schemaIdentifier caseInsensitiveCompare:NSStringFromClass(self.class)] == NSOrderedSame) {
+    if ([[NSPredicate predicateWithFormat:@"SELF MATCHES[cd] %@", NSStringFromClass(self.class)] evaluateWithObject:schemaIdentifier]) {
         return self.class;
     }
     return NULL;
