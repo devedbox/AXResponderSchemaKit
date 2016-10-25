@@ -338,7 +338,12 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     BOOL shouldResolveSchema = [exitsViewController shouldResolveSchemaWithParams:components.params];
                     
                     if (!shouldResolveSchema) {
-                        return NO;
+                        if (!viewController) {
+                            _alertIssue();
+                            return NO;
+                        }
+                        [navigationController pushViewController:viewController animated:animated];
+                        return YES;
                     }
                     
                     [navigationController dismissViewControllerAnimated:animated completion:NULL];
@@ -353,7 +358,12 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     BOOL shouldResolveSchema = [exitsViewController shouldResolveSchemaWithParams:components.params];
                     
                     if (!shouldResolveSchema) {
-                        return NO;
+                        if (!viewController) {
+                            _alertIssue();
+                            return NO;
+                        }
+                        [navigationController pushViewController:viewController animated:animated];
+                        return YES;
                     }
                     
                     [navigationController popToViewController:navigationController.viewControllers[index] animated:animated];
