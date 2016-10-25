@@ -76,6 +76,10 @@ static NSArray *subclasses;
     return nil;
 }
 
+- (BOOL)shouldResolveSchemaWithParams:(NSDictionary *)params {
+    return YES;
+}
+
 - (void)resolveSchemaWithParams:(NSDictionary *)params {
 }
 

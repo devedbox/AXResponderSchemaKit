@@ -186,41 +186,72 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
         switch (components.navigation) {
             case AXSchemaNavigationPresent: {
                 UIViewController *topViewController = [self _topViewController];
-                
+
                 if (!force) {
+                    BOOL shouldResolveSchema=YES;
                     if ([topViewController isMemberOfClass:schemaClass]) {
-                        [topViewController resolveSchemaWithParams:components.params];
-                        return YES;
+                        
+                        shouldResolveSchema = [topViewController shouldResolveSchemaWithParams:components.params];
+                        
+                        if (shouldResolveSchema) {
+                            [topViewController resolveSchemaWithParams:components.params];
+                            return YES;
+                        }
                     }
                     if ([topViewController isKindOfClass:[UINavigationController class]]) {
                         if ([[(UINavigationController*)topViewController topViewController] isMemberOfClass:schemaClass]) {
-                            [[(UINavigationController*)topViewController topViewController] resolveSchemaWithParams:components.params];
-                            return YES;
+                            
+                            shouldResolveSchema = [[(UINavigationController*)topViewController topViewController] shouldResolveSchemaWithParams:components.params];
+                            
+                            if (shouldResolveSchema) {
+                                [[(UINavigationController*)topViewController topViewController] resolveSchemaWithParams:components.params];
+                                return YES;
+                            }
                         }
                     }
                     if ([topViewController presentedViewController]) {
                         if ([[topViewController presentedViewController] isMemberOfClass:schemaClass]) {
-                            [[topViewController presentedViewController] resolveSchemaWithParams:components.params];
-                            return YES;
+                            
+                            shouldResolveSchema = [[topViewController presentedViewController] shouldResolveSchemaWithParams:components.params];
+                            
+                            if (shouldResolveSchema) {
+                                [[topViewController presentedViewController] resolveSchemaWithParams:components.params];
+                                return YES;
+                            }
                         }
                         if ([[topViewController presentedViewController] isKindOfClass:[UINavigationController class]]) {
                             if ([[(UINavigationController*)[topViewController presentedViewController] topViewController] isMemberOfClass:schemaClass]) {
-                                [[(UINavigationController*)[topViewController presentedViewController] topViewController] resolveSchemaWithParams:components.params];
-                                return YES;
+                                
+                                shouldResolveSchema = [[(UINavigationController*)[topViewController presentedViewController] topViewController] shouldResolveSchemaWithParams:components.params];
+                                
+                                if (shouldResolveSchema) {
+                                    [[(UINavigationController*)[topViewController presentedViewController] topViewController] resolveSchemaWithParams:components.params];
+                                    return YES;
+                                }
                             }
                         }
                     }
                     if ([topViewController presentingViewController]) {
                         if ([[topViewController presentingViewController] isMemberOfClass:schemaClass]) {
-                            [topViewController dismissViewControllerAnimated:animated completion:NULL];
-                            [[topViewController presentingViewController] resolveSchemaWithParams:components.params];
-                            return YES;
+                            
+                            shouldResolveSchema = [[topViewController presentingViewController] shouldResolveSchemaWithParams:components.params];
+                            
+                            if (shouldResolveSchema) {
+                                [topViewController dismissViewControllerAnimated:animated completion:NULL];
+                                [[topViewController presentingViewController] resolveSchemaWithParams:components.params];
+                                return YES;
+                            }
                         }
                         if ([[topViewController presentingViewController] isKindOfClass:[UINavigationController class]]) {
                             if ([[(UINavigationController*)[topViewController presentedViewController] topViewController] isMemberOfClass:schemaClass]) {
-                                [topViewController dismissViewControllerAnimated:animated completion:NULL];
-                                [[(UINavigationController*)[topViewController presentedViewController] topViewController] resolveSchemaWithParams:components.params];
-                                return YES;
+                                
+                                shouldResolveSchema = [[(UINavigationController*)[topViewController presentedViewController] topViewController] shouldResolveSchemaWithParams:components.params];
+                                
+                                if (shouldResolveSchema) {
+                                    [topViewController dismissViewControllerAnimated:animated completion:NULL];
+                                    [[(UINavigationController*)[topViewController presentedViewController] topViewController] resolveSchemaWithParams:components.params];
+                                    return YES;
+                                }
                             }
                         }
                     }
@@ -269,6 +300,12 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                         return NO;
                     }
                     
+                    BOOL shouldResolveSchema = [tabBarController shouldResolveSchemaWithParams:components.params];
+                    
+                    if (!shouldResolveSchema) {
+                        return NO;
+                    }
+                    
                     [tabBarController resolveSchemaWithParams:components.params];
                     
                     [tabBarController setSelectedIndex:components.selectedIndex];
@@ -298,6 +335,12 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                 NSInteger index = [self _indexOfClass:schemaClass inNavigationController:&navigationController exists:&exitsViewController animated:animated];
                 
                 if (index == -1) {
+                    BOOL shouldResolveSchema = [exitsViewController shouldResolveSchemaWithParams:components.params];
+                    
+                    if (!shouldResolveSchema) {
+                        return NO;
+                    }
+                    
                     [navigationController dismissViewControllerAnimated:animated completion:NULL];
                     [exitsViewController resolveSchemaWithParams:components.params];
                 } else if (index == NSNotFound) {
@@ -307,6 +350,12 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     }
                     [navigationController pushViewController:viewController animated:animated];
                 } else {
+                    BOOL shouldResolveSchema = [exitsViewController shouldResolveSchemaWithParams:components.params];
+                    
+                    if (!shouldResolveSchema) {
+                        return NO;
+                    }
+                    
                     [navigationController popToViewController:navigationController.viewControllers[index] animated:animated];
                     [exitsViewController resolveSchemaWithParams:components.params];
                 }

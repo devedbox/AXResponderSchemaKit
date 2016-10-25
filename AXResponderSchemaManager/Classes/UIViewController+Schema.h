@@ -37,6 +37,12 @@ extern NSString *_Nonnull const kAXResponderSchemaCompletionURLKey;
 ///
 /// @return a new view controller.
 + (nullable instancetype)viewControllerForSchemaWithParams:(NSDictionary *_Nullable*_Nullable)params;
+/// Get a value for the instance to handle params.
+/// @discusstion If NO, the schema manager will perform a force schema instead.
+///
+/// @param params params of the url object.
+///
+- (BOOL)shouldResolveSchemaWithParams:(NSDictionary *_Nullable)params;
 /// Dynamically handle the param form a schema.
 ///
 /// @param params params of the url object.
