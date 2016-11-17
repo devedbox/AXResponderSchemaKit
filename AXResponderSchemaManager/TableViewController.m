@@ -48,7 +48,7 @@
     
     switch (indexPath.row) {
         case 0:
-            [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:@"axviewcontrollerschema://viewcontroller/tabbar?navigation=2&selectedindex=1"]];
+            [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:@"axviewcontrollerschema://viewcontroller/tabbar?navigation=2&selectedindex=1&delay=1.0"]];
             break;
         case 1:
             [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:@"axviewcontrollerschema://viewcontroller/viewcontroller1?navigation=0&animated=1"]];
@@ -60,7 +60,7 @@
             [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"axviewcontrollerschema://control/switch?navigation=0&animated=1&action=%@", @(1 << 12)]]];
             break;
         case 4:
-            [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"axviewcontrollerschema://viewcontroller/alErT?title=%@&message=%@", [@"测试" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], [@"这是一条测试消息" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]]];
+            [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"axviewcontrollerschema://viewcontroller/alErT?title=%@&message=%@&delay=1.0", [@"测试" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], [@"这是一条测试消息" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]]];
             break;
         default:
             [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:@"axviewcontrollerschema://viewcontroller/viewcontroller"]];

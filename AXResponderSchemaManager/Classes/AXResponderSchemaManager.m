@@ -237,7 +237,9 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                             shouldResolveSchema = [[topViewController presentingViewController] shouldResolveSchemaWithParams:components.params];
                             
                             if (shouldResolveSchema) {
-                                [topViewController dismissViewControllerAnimated:animated completion:NULL];
+                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                    [topViewController dismissViewControllerAnimated:animated completion:NULL];
+                                });
                                 [[topViewController presentingViewController] resolveSchemaWithParams:components.params];
                                 return YES;
                             }
@@ -248,7 +250,9 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                                 shouldResolveSchema = [[(UINavigationController*)[topViewController presentedViewController] topViewController] shouldResolveSchemaWithParams:components.params];
                                 
                                 if (shouldResolveSchema) {
-                                    [topViewController dismissViewControllerAnimated:animated completion:NULL];
+                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                        [topViewController dismissViewControllerAnimated:animated completion:NULL];
+                                    });
                                     [[(UINavigationController*)[topViewController presentedViewController] topViewController] resolveSchemaWithParams:components.params];
                                     return YES;
                                 }
@@ -268,7 +272,9 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                 }
                 
                 if ([viewController isKindOfClass:UINavigationController.class] || [viewController isKindOfClass:UIAlertController.class]) { // Presented with nagigation controller.
-                    [viewControllerToShow presentViewController:viewController animated:animated completion:NULL];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [viewControllerToShow presentViewController:viewController animated:animated completion:NULL];
+                    });
                 } else {
                     // Get navigation class.
                     Class navigationClass = class_respondsToSelector(schemaClass, @selector(classForNavigationController))?[schemaClass classForNavigationController]:_navigationControllClass?:UINavigationController.class;
@@ -279,7 +285,9 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     }
                     // Initialize a navigation controller.
                     UINavigationController *navigationController = [[navigationClass alloc] initWithRootViewController:viewController];
-                    [viewControllerToShow presentViewController:navigationController animated:animated completion:NULL];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [viewControllerToShow presentViewController:navigationController animated:animated completion:NULL];
+                    });
                 }
                 return YES;
             }
@@ -308,10 +316,13 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     
                     [tabBarController resolveSchemaWithParams:components.params];
                     
-                    [tabBarController setSelectedIndex:components.selectedIndex];
-                    if ([[[tabBarController viewControllers] objectAtIndex:components.selectedIndex] isKindOfClass:[UINavigationController class]] && force) {
-                        [(UINavigationController*)[[tabBarController viewControllers] objectAtIndex:components.selectedIndex] popToRootViewControllerAnimated:animated];
-                    }
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [tabBarController setSelectedIndex:components.selectedIndex];
+                        
+                        if ([[[tabBarController viewControllers] objectAtIndex:components.selectedIndex] isKindOfClass:[UINavigationController class]] && force) {
+                            [(UINavigationController*)[[tabBarController viewControllers] objectAtIndex:components.selectedIndex] popToRootViewControllerAnimated:animated];
+                        }
+                    });
                 }
                 return YES;
             }
@@ -326,7 +337,9 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                         _alertIssue();
                         return NO;
                     }
-                    [navigationController pushViewController:viewController animated:animated];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [navigationController pushViewController:viewController animated:animated];
+                    });
                     return YES;
                 }
                 
@@ -342,18 +355,24 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                             _alertIssue();
                             return NO;
                         }
-                        [navigationController pushViewController:viewController animated:animated];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [navigationController pushViewController:viewController animated:animated];
+                        });
                         return YES;
                     }
                     
-                    [navigationController dismissViewControllerAnimated:animated completion:NULL];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [navigationController dismissViewControllerAnimated:animated completion:NULL];
+                    });
                     [exitsViewController resolveSchemaWithParams:components.params];
                 } else if (index == NSNotFound) {
                     if (!viewController) {
                         _alertIssue();
                         return NO;
                     }
-                    [navigationController pushViewController:viewController animated:animated];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [navigationController pushViewController:viewController animated:animated];
+                    });
                 } else {
                     BOOL shouldResolveSchema = [exitsViewController shouldResolveSchemaWithParams:components.params];
                     
@@ -362,11 +381,15 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                             _alertIssue();
                             return NO;
                         }
-                        [navigationController pushViewController:viewController animated:animated];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [navigationController pushViewController:viewController animated:animated];
+                        });
                         return YES;
                     }
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [navigationController popToViewController:navigationController.viewControllers[index] animated:animated];
+                    });
                     
-                    [navigationController popToViewController:navigationController.viewControllers[index] animated:animated];
                     [exitsViewController resolveSchemaWithParams:components.params];
                 }
                 return YES;

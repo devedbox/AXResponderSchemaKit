@@ -36,6 +36,7 @@ NSString *const kAXResponderSchemaSelectedIndexKey = @"selectedindex";
 NSString *const kAXResponderSchemaActionKey = @"action";
 NSString *const kAXResponderSchemaSchemaClassKey = @"class";
 NSString *const kAXResponderSchemaForceKey = @"force";
+NSString *const kAXResponderSchemaDelayKey = @"delay";
 
 @implementation AXResponderSchemaComponents
 - (instancetype)initWithURL:(NSURL *)url {
@@ -52,6 +53,10 @@ NSString *const kAXResponderSchemaForceKey = @"force";
 }
 
 #pragma mark - Getters
+- (NSTimeInterval)delay {
+    return MAX([_params[kAXResponderSchemaDelayKey] doubleValue], .0);
+}
+
 - (BOOL)force {
     return [_params[kAXResponderSchemaForceKey] boolValue];
 }

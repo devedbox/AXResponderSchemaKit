@@ -58,6 +58,10 @@ extern NSString *const kAXResponderSchemaSchemaClassKey;
 ///
 /// @description Force to show view controller ignoring existed view controller. Default is NO.
 extern NSString *const kAXResponderSchemaForceKey;
+/// Param key: `delay`
+///
+/// @description Timeinterval duration to show view controller.
+extern NSString *const kAXResponderSchemaDelayKey;
 
 typedef NS_ENUM(int64_t, AXSchemaNavigation) {
     /// Push view controllers using navigation controller.
@@ -87,6 +91,8 @@ typedef NS_ENUM(int64_t, AXSchemaNavigation) {
 @property(readonly, nonatomic) NSInteger selectedIndex;
 /// Force to show view controller.
 @property(readonly, nonatomic) BOOL force;
+/// Delay time duration of schema.
+@property(readonly, nonatomic) NSTimeInterval delay;
 /// Params of url.
 @property(readonly, strong, nonatomic) NSDictionary *params;
 /// URL.

@@ -40,6 +40,6 @@
 }
 
 - (IBAction)show:(id)sender {
-    [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:@"axviewcontrollerschema://viewcontroller/viewcontroller1?navigation=1&animated=1"]];
+    [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:@"axviewcontrollerschema://viewcontroller/viewcontroller1?navigation=1&animated=1&delay=0.5"]];
 }
 @end

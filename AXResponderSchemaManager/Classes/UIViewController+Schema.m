@@ -44,7 +44,10 @@ static NSArray *subclasses;
 }
 
 + (void)load {
-    [self ax_exchangeInstanceOriginalMethod:@selector(viewDidAppear:) swizzledMethod:@selector(ax_viewDidAppear:)];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self ax_exchangeInstanceOriginalMethod:@selector(viewDidAppear:) swizzledMethod:@selector(ax_viewDidAppear:)];
+    });
     // Get all sub classes.
     // Classes buffer.
     Class *classes;

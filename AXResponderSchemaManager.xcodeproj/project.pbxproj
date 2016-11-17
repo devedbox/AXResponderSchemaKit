@@ -14,7 +14,6 @@
 		DC29A9931DACF7050073E8AF /* AXResponderSchemaComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A97D1DACF7050073E8AF /* AXResponderSchemaComponents.m */; };
 		DC29A9941DACF7050073E8AF /* AXResponderSchemaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A9801DACF7050073E8AF /* AXResponderSchemaManager.m */; };
 		DC29A9951DACF7050073E8AF /* UIViewController+Schema.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A9821DACF7050073E8AF /* UIViewController+Schema.m */; };
-		DC29A9961DACF7050073E8AF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC29A9831DACF7050073E8AF /* Info.plist */; };
 		DC29A9971DACF7050073E8AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A9841DACF7050073E8AF /* main.m */; };
 		DC29A9981DACF7050073E8AF /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A9861DACF7050073E8AF /* TabBarViewController.m */; };
 		DC29A9991DACF7050073E8AF /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC29A9881DACF7050073E8AF /* TableViewController.m */; };
@@ -226,7 +225,7 @@
 		DC9A38881DACA0EF003125FF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = devedbox;
 				TargetAttributes = {
 					DC9A388F1DACA0EF003125FF = {
@@ -274,7 +273,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC29A9961DACF7050073E8AF /* Info.plist in Resources */,
 				DC29A9921DACF7050073E8AF /* Main.storyboard in Resources */,
 				DCFA60E71DB138E3000A0681 /* AXResponderSchemaManager.bundle in Resources */,
 				DC29A9901DACF7050073E8AF /* Assets.xcassets in Resources */,
@@ -387,6 +385,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -436,6 +435,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
