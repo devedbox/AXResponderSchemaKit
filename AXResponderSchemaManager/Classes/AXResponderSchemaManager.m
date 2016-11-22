@@ -407,11 +407,16 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
             // Get control.
             UIControl *control = [topViewController UIControlOfViewControllerForIdentifier:components.identifier];
             if (!control) return NO;
-            [control sendActionsForControlEvents:components.event];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [control sendActionsForControlEvents:components.event];
+            });
             return YES;
         } else {
             // Open view controller first.
             [components setValue:@"viewcontroller" forKeyPath:@"module"];
+            NSMutableDictionary *params = [components.params mutableCopy];
+            [params setObject:@(.0) forKey:@"delay"];
+            [components setValue:[params copy] forKey:@"params"];
             return [self _openSchemaWithSchemaComponents:components completion:nil viewDidAppearSchema:components.URL];
             return YES;
         }
