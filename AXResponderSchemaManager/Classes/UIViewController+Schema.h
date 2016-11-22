@@ -48,6 +48,11 @@ extern NSString *_Nonnull const kAXResponderSchemaCompletionURLKey;
 /// @param params params of the url object.
 ///
 - (void)resolveSchemaWithParams:(NSDictionary *_Nullable)params;
+/// Dynamically handle the URL form a schema.
+///
+/// @param URL The URL to open.
+///
+- (void)resolveSchemaWithURL:(NSURL *_Nonnull)URL;
 /// Get the class of navigation controller.
 ///
 /// @return class of navigation controller.

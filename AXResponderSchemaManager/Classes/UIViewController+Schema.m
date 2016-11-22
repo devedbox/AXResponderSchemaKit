@@ -86,6 +86,9 @@ static NSArray *subclasses;
 - (void)resolveSchemaWithParams:(NSDictionary *)params {
 }
 
+- (void)resolveSchemaWithURL:(NSURL *)URL {
+}
+
 + (Class)classForNavigationController {
     return UINavigationController.class;
 }

@@ -146,6 +146,8 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
         // Get the view controller.
         UIViewController *viewController = [schemaClass viewControllerForSchemaWithParams:&params];
         
+        [viewController resolveSchemaWithURL:components.URL];
+        
         [components setValue:params forKeyPath:@"params"];
         
         if (![viewController isMemberOfClass:UIAlertController.class]) {
@@ -191,6 +193,8 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     BOOL shouldResolveSchema=YES;
                     if ([topViewController isMemberOfClass:schemaClass]) {
                         
+                        [topViewController resolveSchemaWithURL:components.URL];
+                        
                         shouldResolveSchema = [topViewController shouldResolveSchemaWithParams:components.params];
                         
                         if (shouldResolveSchema) {
@@ -200,6 +204,8 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     }
                     if ([topViewController isKindOfClass:[UINavigationController class]]) {
                         if ([[(UINavigationController*)topViewController topViewController] isMemberOfClass:schemaClass]) {
+                            
+                            [[(UINavigationController*)topViewController topViewController] resolveSchemaWithURL:components.URL];
                             
                             shouldResolveSchema = [[(UINavigationController*)topViewController topViewController] shouldResolveSchemaWithParams:components.params];
                             
@@ -212,6 +218,8 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     if ([topViewController presentedViewController]) {
                         if ([[topViewController presentedViewController] isMemberOfClass:schemaClass]) {
                             
+                            [[topViewController presentedViewController] resolveSchemaWithURL:components.URL];
+                            
                             shouldResolveSchema = [[topViewController presentedViewController] shouldResolveSchemaWithParams:components.params];
                             
                             if (shouldResolveSchema) {
@@ -221,6 +229,8 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                         }
                         if ([[topViewController presentedViewController] isKindOfClass:[UINavigationController class]]) {
                             if ([[(UINavigationController*)[topViewController presentedViewController] topViewController] isMemberOfClass:schemaClass]) {
+                                
+                                [[(UINavigationController*)[topViewController presentedViewController] topViewController] resolveSchemaWithURL:components.URL];
                                 
                                 shouldResolveSchema = [[(UINavigationController*)[topViewController presentedViewController] topViewController] shouldResolveSchemaWithParams:components.params];
                                 
@@ -234,6 +244,8 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     if ([topViewController presentingViewController]) {
                         if ([[topViewController presentingViewController] isMemberOfClass:schemaClass]) {
                             
+                            [[topViewController presentingViewController] resolveSchemaWithURL:components.URL];
+                            
                             shouldResolveSchema = [[topViewController presentingViewController] shouldResolveSchemaWithParams:components.params];
                             
                             if (shouldResolveSchema) {
@@ -246,6 +258,8 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                         }
                         if ([[topViewController presentingViewController] isKindOfClass:[UINavigationController class]]) {
                             if ([[(UINavigationController*)[topViewController presentedViewController] topViewController] isMemberOfClass:schemaClass]) {
+                                
+                                [[topViewController presentingViewController] resolveSchemaWithURL:components.URL];
                                 
                                 shouldResolveSchema = [[(UINavigationController*)[topViewController presentedViewController] topViewController] shouldResolveSchemaWithParams:components.params];
                                 
@@ -314,6 +328,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                         return NO;
                     }
                     
+                    [tabBarController resolveSchemaWithURL:components.URL];
                     [tabBarController resolveSchemaWithParams:components.params];
                     
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -364,6 +379,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [navigationController dismissViewControllerAnimated:animated completion:NULL];
                     });
+                    [exitsViewController resolveSchemaWithURL:components.URL];
                     [exitsViewController resolveSchemaWithParams:components.params];
                 } else if (index == NSNotFound) {
                     if (!viewController) {
@@ -390,6 +406,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                         [navigationController popToViewController:navigationController.viewControllers[index] animated:animated];
                     });
                     
+                    [exitsViewController resolveSchemaWithURL:components.URL];
                     [exitsViewController resolveSchemaWithParams:components.params];
                 }
                 return YES;
@@ -405,6 +422,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
         UIViewController *topViewController = [self _topViewController];
         if ([topViewController isMemberOfClass:schemaClass]) {
             // Resolve the params.
+            [topViewController resolveSchemaWithURL:components.URL];
             [topViewController resolveSchemaWithParams:components.params];
             // Get control.
             UIControl *control = [topViewController UIControlOfViewControllerForIdentifier:components.identifier];
