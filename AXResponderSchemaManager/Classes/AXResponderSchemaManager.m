@@ -404,6 +404,8 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
         // Get the top view controller.
         UIViewController *topViewController = [self _topViewController];
         if ([topViewController isMemberOfClass:schemaClass]) {
+            // Resolve the params.
+            [topViewController resolveSchemaWithParams:components.params];
             // Get control.
             UIControl *control = [topViewController UIControlOfViewControllerForIdentifier:components.identifier];
             if (!control) return NO;
