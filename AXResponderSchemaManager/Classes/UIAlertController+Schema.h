@@ -36,6 +36,14 @@ extern NSString *_Nonnull const kAXResponderSchemaAlertSchemaStyleKey;
 extern NSString *_Nonnull const kAXResponderSchemaAlertSchemaButtonTitleKey;
 
 @interface UIAlertController (Schema)
+/// Convenient method to create a alert view controller with a parameter with the key-values from above.
+///
+/// @param params params to create alert view controller with.
+///
 + (nullable instancetype)viewControllerForSchemaWithParams:(NSDictionary *_Nullable*_Nullable)params;
+/// Override the class getting and return a class to be referenced for the schema url.
+///
+/// @param schemaIdentifier a schema identifier to be compared with. In this case, it would be `alert`.
+///
 + (nullable Class)classForSchemaIdentifier:(NSString *_Nonnull)schemaIdentifier;
 @end
