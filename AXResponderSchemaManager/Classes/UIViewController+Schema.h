@@ -37,6 +37,14 @@ extern NSString *_Nonnull const kAXResponderSchemaCompletionURLKey;
 ///
 /// @return a new view controller.
 + (nullable instancetype)viewControllerForSchemaWithParams:(NSDictionary *_Nullable*_Nullable)params;
+#pragma mark - Handle the URL and params.
+// resolve schema url -> should resolve schema params -YES> resolve schema params.
+
+/// Dynamically handle the URL form a schema.
+///
+/// @param URL The URL to open.
+///
+- (void)resolveSchemaWithURL:(NSURL *_Nonnull)URL;
 /// Get a value for the instance to handle params.
 /// @discusstion If NO, the schema manager will perform a force schema instead.
 ///
@@ -48,11 +56,6 @@ extern NSString *_Nonnull const kAXResponderSchemaCompletionURLKey;
 /// @param params params of the url object.
 ///
 - (void)resolveSchemaWithParams:(NSDictionary *_Nullable)params;
-/// Dynamically handle the URL form a schema.
-///
-/// @param URL The URL to open.
-///
-- (void)resolveSchemaWithURL:(NSURL *_Nonnull)URL;
 /// Get the class of navigation controller.
 ///
 /// @return class of navigation controller.
