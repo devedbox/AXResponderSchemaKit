@@ -115,58 +115,63 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
 }
 
 - (BOOL)_openSchemaWithSchemaComponents:(AXResponderSchemaComponents *)components completion:(NSURL *)completionURL viewDidAppearSchema:(NSURL *)schema {
-    Class schemaClass = NULL;
-    
-    if (components.schemaClassIdentifier) {// Get the specific class for class identifier in url params.
-        schemaClass = [UIViewController classForSchemaIdentifier:components.schemaClassIdentifier];
-        if (schemaClass == NULL) {// Get the class for the schema identifier.
+    // Find class for schema in the registered classes first.
+    Class schemaClass = [self.class classForSchema:components.identifier];
+    // Class is not registered. Find using runtime.
+    if (schemaClass == NULL) {
+        if (components.schemaClassIdentifier.length > 0) {// Get the specific class for class identifier in url params.
+            schemaClass = [UIViewController classForSchemaIdentifier:components.schemaClassIdentifier];
+            if (schemaClass == NULL) {// Get the class for the schema identifier.
+                schemaClass = [UIViewController classForSchemaIdentifier:components.identifier];
+            }
+        } else {// Get the class for the schema identifier.
             schemaClass = [UIViewController classForSchemaIdentifier:components.identifier];
         }
-    } else {// Get the class for the schema identifier.
-        schemaClass = [UIViewController classForSchemaIdentifier:components.identifier];
     }
-    if (schemaClass == NULL) {
-        schemaClass = [self.class classForSchema:components.identifier];
-    } else {
-        if (![schemaClass allowsForSchameIdentifier:components.identifier]) return NO;
-    }
-    
+    // Return NO if class for schema is null.
+    if (schemaClass == NULL) return NO;
+    // Return NO if class for schema is meta class.
     if (class_isMetaClass(schemaClass)) return NO;
-    if ((schemaClass == NULL || ![UIApplication sharedApplication].keyWindow.rootViewController) && ![components.identifier isEqualToString:kAXResponderSchemaTabBarControllerIdentifier]) return NO;
-    // Handle the moudle.
+    // Return NO if class for schema does not allow the schema.
+    if (![schemaClass allowsForSchameIdentifier:components.identifier]) return NO;
+    
+    if ((![UIApplication sharedApplication].keyWindow.rootViewController) && ![components.identifier isEqualToString:kAXResponderSchemaTabBarControllerIdentifier]) return NO;
+    // Handle the moudles.
     if ([components.module isEqualToString:kAXResponderSchemaModuleUIViewController]) { // View controller -> Show and hide.
+        // Do not open if the class for the schema is not the subclass of the UIViewController.
+        if (![schemaClass isSubclassOfClass:UIViewController.class]) {
+            return NO;
+        }
+        // Force to show(push/present e.g.) the view controller. Default is no force.
         BOOL force = NO;
         if (components.params[kAXResponderSchemaForceKey]) {
             force = components.force;
         }
+        // If the instance of the class for schema is already exiting and no force, return YES.
+        if ([[self _topViewController] isMemberOfClass:schemaClass] && !force) return YES;
         
-        if ([[self _topViewController] isMemberOfClass:schemaClass] && !force) return NO;
-        // Get the new view controller with the methods.
-        if (![schemaClass isSubclassOfClass:UIViewController.class]) {
-            return NO;
-        }
         // Set up params.
         NSMutableDictionary *params = [components.params mutableCopy];
         if (completionURL) [params setObject:completionURL forKey:kAXResponderSchemaCompletionURLKey];
-        // Get the view controller.
+        // Get the view controller instance of the class for the schema with the params of the schema. This gave the chance to handle the params of the schema.
         UIViewController *viewController = [schemaClass viewControllerForSchemaWithParams:&params];
-        
+        // This gave a chance for the instance of the class for the schema to deal with the original url.
         [viewController resolveSchemaWithURL:components.URL];
-        
+        // Update the params of the compnents of url.
         [components setValue:params forKeyPath:@"params"];
-        
+        // Set the view-did-appear schema to the nonalert view controller.
         if (![viewController isMemberOfClass:UIAlertController.class]) {
             viewController.viewDidAppearSchema = schema;
         }
         
-        UIViewController *viewControllerToShow = _navigationController?:_viewController;
-        
+        UIViewController *viewControllerToShowOf = _navigationController?:_viewController;
+        // Animated to show view controller. Default is YES.
         BOOL animated = YES;
         if (components.params[kAXResponderSchemaAnimatedKey]) {
             animated = components.animated;
         }
         
-        void(^_alertIssue)() = ^() {
+        void(^_ALERT_ISSUE)() = ^() {
             // Show the alert.
             [components setValue:@"alert" forKeyPath:@"identifier"];
             // Set title.
@@ -280,19 +285,19 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     }
                 }
                 
-                if (!viewControllerToShow) {
-                    viewControllerToShow = topViewController;
+                if (!viewControllerToShowOf) {
+                    viewControllerToShowOf = topViewController;
                 }
                 
                 // Show the alert.
                 if (!viewController) {
-                    _alertIssue();
+                    _ALERT_ISSUE();
                     return NO;
                 }
                 
                 if ([viewController isKindOfClass:UINavigationController.class] || [viewController isKindOfClass:UIAlertController.class]) { // Presented with nagigation controller.
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [viewControllerToShow presentViewController:viewController animated:animated completion:NULL];
+                        [viewControllerToShowOf presentViewController:viewController animated:animated completion:NULL];
                     });
                 } else {
                     // Get navigation class.
@@ -305,7 +310,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     // Initialize a navigation controller.
                     UINavigationController *navigationController = [[navigationClass alloc] initWithRootViewController:viewController];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [viewControllerToShow presentViewController:navigationController animated:animated completion:NULL];
+                        [viewControllerToShowOf presentViewController:navigationController animated:animated completion:NULL];
                     });
                 }
                 return YES;
@@ -354,7 +359,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                 
                 if (force) {
                     if (!viewController) {
-                        _alertIssue();
+                        _ALERT_ISSUE();
                         return NO;
                     }
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -372,7 +377,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     
                     if (!shouldResolveSchema) {
                         if (!viewController) {
-                            _alertIssue();
+                            _ALERT_ISSUE();
                             return NO;
                         }
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -388,7 +393,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     [exitsViewController resolveSchemaWithParams:components.params];
                 } else if (index == NSNotFound) {
                     if (!viewController) {
-                        _alertIssue();
+                        _ALERT_ISSUE();
                         return NO;
                     }
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -399,7 +404,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     
                     if (!shouldResolveSchema) {
                         if (!viewController) {
-                            _alertIssue();
+                            _ALERT_ISSUE();
                             return NO;
                         }
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
