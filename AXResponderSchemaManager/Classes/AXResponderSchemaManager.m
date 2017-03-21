@@ -36,6 +36,11 @@ NSString *const kAXResponderSchemaTabBarControllerIdentifier = @"tabbar";
 
 NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
 
+@interface UIViewController (TopPresentedViewController)
+/// Top presented view controller.
+@property(readonly, nonatomic, nullable) UIViewController *topPresentedViewController;
+@end
+
 @implementation AXResponderSchemaManager
 + (instancetype)sharedManager {
     static id _sharedInstance = nil;
@@ -461,27 +466,38 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
         // Get the tab bar controller.
         UITabBarController *tabBarController = (UITabBarController *)topViewController;
         // Find the view controller hierarchy if class is still `UITabBarController` or `UINavigationController`.
-        if ([tabBarController.selectedViewController isKindOfClass:[UINavigationController class]] || [tabBarController.selectedViewController isKindOfClass:[UITabBarController class]]) {
-            topViewController = [self _topViewControllerWithRootViewController:tabBarController.selectedViewController];
+        // Get the selected view controller of tabbar controller.
+        UIViewController *selectedViewController = tabBarController.selectedViewController;
+        if ([selectedViewController isKindOfClass:[UINavigationController class]] || [selectedViewController isKindOfClass:[UITabBarController class]]) {
+            topViewController = [self _topViewControllerWithRootViewController:selectedViewController];
         }  else {
-            if ([tabBarController.selectedViewController.presentedViewController isKindOfClass:[UINavigationController class]] || [tabBarController.selectedViewController.presentedViewController isKindOfClass:[UITabBarController class]]) {
-                topViewController = [self _topViewControllerWithRootViewController:tabBarController.selectedViewController.presentedViewController];
+            // Get presented view controller.
+            UIViewController *presentedViewController = selectedViewController.topPresentedViewController;
+            
+            if ([presentedViewController isKindOfClass:[UINavigationController class]] || [presentedViewController isKindOfClass:[UITabBarController class]]) {
+                topViewController = [self _topViewControllerWithRootViewController:presentedViewController];
+            } else {
+                topViewController = presentedViewController?:selectedViewController;
             }
-            topViewController = tabBarController.selectedViewController.presentedViewController?:tabBarController.selectedViewController;
         }
     }
     // Resolve the navigation class.
     if ([topViewController isKindOfClass:[UINavigationController class]]) {
         UINavigationController *navigationController = (UINavigationController *)topViewController;
-        if (navigationController.presentedViewController) {
-            if ([navigationController.presentedViewController isKindOfClass:[UINavigationController class]] || [navigationController.presentedViewController isKindOfClass:[UITabBarController class]]) {
+        // Get presented view controller of navigation controller.
+        UIViewController *presentedViewController = navigationController.topPresentedViewController;
+        
+        if (presentedViewController) {
+            if ([presentedViewController isKindOfClass:[UINavigationController class]] || [presentedViewController isKindOfClass:[UITabBarController class]]) {
                 return [self _topViewControllerWithRootViewController:navigationController.presentedViewController];
             }
-            return navigationController.presentedViewController;
+            return presentedViewController;
         } else if (navigationController.topViewController) {
-            if (navigationController.topViewController.presentedViewController) {
-                if ([navigationController.topViewController.presentedViewController isKindOfClass:[UINavigationController class]] || [navigationController.topViewController.presentedViewController isKindOfClass:[UITabBarController class]]) {
-                    return [self _topViewControllerWithRootViewController:navigationController.topViewController.presentedViewController];
+            presentedViewController = navigationController.topViewController.topPresentedViewController;
+            
+            if (presentedViewController) {
+                if ([presentedViewController isKindOfClass:[UINavigationController class]] || [presentedViewController isKindOfClass:[UITabBarController class]]) {
+                    return [self _topViewControllerWithRootViewController:presentedViewController];
                 }
                 return navigationController.topViewController.presentedViewController;
             } else {
@@ -494,11 +510,13 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
             return navigationController;
         }
     } else if ([topViewController isKindOfClass:[UIViewController class]]) {
-        if (topViewController.presentedViewController) {
-            if ([topViewController.presentedViewController isKindOfClass:[UINavigationController class]] || [topViewController.presentedViewController isKindOfClass:[UINavigationController class]]) {
-                return [self _topViewControllerWithRootViewController:topViewController.presentedViewController];
+        // Get presented view controller of top view controller.
+        UIViewController *presentedViewController = topViewController.topPresentedViewController;
+        if (presentedViewController) {
+            if ([presentedViewController isKindOfClass:[UINavigationController class]] || [topViewController.presentedViewController isKindOfClass:[UINavigationController class]]) {
+                return [self _topViewControllerWithRootViewController:presentedViewController];
             }
-            return topViewController.presentedViewController;
+            return presentedViewController;
         }
         return topViewController;
     } else {
@@ -567,5 +585,17 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
         }
     }
     return NSNotFound;
+}
+@end
+
+@implementation UIViewController (TopPresentedViewController)
+- (UIViewController *)topPresentedViewController {
+    UIViewController *presentedViewController = self.presentedViewController;
+    
+    while (presentedViewController.presentedViewController != nil) {
+        presentedViewController = presentedViewController.presentedViewController;
+    }
+    
+    return presentedViewController;
 }
 @end
