@@ -60,13 +60,15 @@ static NSArray *subclasses;
         classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * count);
         count = objc_getClassList(classes, count);
         for (int i = 0; i < count; i ++) {
-            Class cls = classes[i];
-            Class superClass = cls;
-            while (superClass!=NULL && !class_isMetaClass(superClass)) {
-                superClass = class_getSuperclass(superClass);
-                if (superClass == UIViewController.class) {
-                    [subclses addObject:cls];
-                    superClass = NULL;
+            @autoreleasepool {
+                Class cls = classes[i];
+                Class superClass = cls;
+                while (superClass!=NULL && !class_isMetaClass(superClass)) {
+                    superClass = class_getSuperclass(superClass);
+                    if (superClass == UIViewController.class) {
+                        [subclses addObject:cls];
+                        superClass = NULL;
+                    }
                 }
             }
         }
