@@ -107,12 +107,6 @@
 			children = (
 				DC29A9741DACF7050073E8AF /* AppDelegate.h */,
 				DC29A9751DACF7050073E8AF /* AppDelegate.m */,
-				DC29A9761DACF7050073E8AF /* Assets.xcassets */,
-				DC29A97B1DACF7050073E8AF /* Classes */,
-				DC29A9771DACF7050073E8AF /* LaunchScreen.storyboard */,
-				DC29A9791DACF7050073E8AF /* Main.storyboard */,
-				DC29A9831DACF7050073E8AF /* Info.plist */,
-				DC29A9841DACF7050073E8AF /* main.m */,
 				DC29A9851DACF7050073E8AF /* TabBarViewController.h */,
 				DC29A9861DACF7050073E8AF /* TabBarViewController.m */,
 				DC29A9871DACF7050073E8AF /* TableViewController.h */,
@@ -123,6 +117,12 @@
 				DC29A98C1DACF7050073E8AF /* ViewController1.m */,
 				DC29A98D1DACF7050073E8AF /* ViewController2.h */,
 				DC29A98E1DACF7050073E8AF /* ViewController2.m */,
+				DC29A97B1DACF7050073E8AF /* Classes */,
+				DC29A9761DACF7050073E8AF /* Assets.xcassets */,
+				DC29A9771DACF7050073E8AF /* LaunchScreen.storyboard */,
+				DC29A9791DACF7050073E8AF /* Main.storyboard */,
+				DC29A9831DACF7050073E8AF /* Info.plist */,
+				DC29A9841DACF7050073E8AF /* main.m */,
 			);
 			path = AXResponderSchemaManager;
 			sourceTree = "<group>";
