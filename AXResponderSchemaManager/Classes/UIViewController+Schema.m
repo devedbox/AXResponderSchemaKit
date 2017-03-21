@@ -94,8 +94,7 @@ static NSArray *subclasses;
 }
 
 + (Class)classForSchemaIdentifier:(NSString *)schemaIdentifier {
-    for (int i = 0; i < subclasses.count; i ++) {
-        Class cls = subclasses[i];
+    for (Class cls in subclasses) {
         Class superClass = class_getSuperclass(cls);
         if (superClass == self.class) {
             Class _cls = [cls classForSchemaIdentifier:schemaIdentifier];
