@@ -354,7 +354,14 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
             }
             case AXSchemaNavigationSelectedIndex: {
                 // Get tab bar controller.
-                UITabBarController *tabBarController = _tabBarController;
+                UITabBarController *tabBarController;
+                
+                if ([viewController isKindOfClass:UITabBarController.class]) {
+                    tabBarController = (UITabBarController *)viewController;
+                } else {
+                    tabBarController = _tabBarController;
+                }
+                
                 if (!tabBarController) {
                     // Get the root view controller.
                     UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
@@ -369,13 +376,13 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                         return NO;
                     }
                     
+                    [tabBarController resolveSchemaWithURL:components.URL];
                     BOOL shouldResolveSchema = [tabBarController shouldResolveSchemaWithParams:components.params];
                     
                     if (!shouldResolveSchema) {
                         return NO;
                     }
                     
-                    [tabBarController resolveSchemaWithURL:components.URL];
                     [tabBarController resolveSchemaWithParams:components.params];
                     
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -396,8 +403,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                 
                 if (force) {
                     if (!viewController) {
-                        _ALERT_ISSUE();
-                        return NO;
+                        _ALERT_ISSUE(); return NO;
                     }
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [navigationController pushViewController:viewController animated:animated];
@@ -410,12 +416,12 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                 NSInteger index = [self _indexOfClass:schemaClass inNavigationController:&navigationController exists:&exitsViewController animated:animated];
                 
                 if (index == -1) {
+                    [exitsViewController resolveSchemaWithURL:components.URL];
                     BOOL shouldResolveSchema = [exitsViewController shouldResolveSchemaWithParams:components.params];
                     
                     if (!shouldResolveSchema) {
                         if (!viewController) {
-                            _ALERT_ISSUE();
-                            return NO;
+                            _ALERT_ISSUE(); return NO;
                         }
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                             [navigationController pushViewController:viewController animated:animated];
