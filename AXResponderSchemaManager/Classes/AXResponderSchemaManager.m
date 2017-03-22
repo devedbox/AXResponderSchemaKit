@@ -351,7 +351,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     });
                 }
                 return YES;
-            }
+            } break;
             case AXSchemaNavigationSelectedIndex: {
                 // Get tab bar controller.
                 UITabBarController *tabBarController;
@@ -394,7 +394,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     });
                 }
                 return YES;
-            }
+            } break;
             default: {
                 // Get the navigation controller.
                 UINavigationController *navigationController = _navigationController ?: [self _rootNavigationController];
@@ -463,7 +463,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     [exitsViewController resolveSchemaWithParams:components.params];
                 }
                 return YES;
-            }
+            } break;
         }
     } else if ([components.module isEqualToString:kAXResponderSchemaModuleUIControl]) { // UIControl -> Send actions.
         // Get the control object.
