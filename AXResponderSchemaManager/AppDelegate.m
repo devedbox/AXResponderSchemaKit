@@ -7,9 +7,13 @@
 //
 
 #import "AppDelegate.h"
-#import "AXResponderSchemaComponents.h"
-#import "UIViewController+Schema.h"
+#import "AXResponderSchemaKit.h"
 #import "TableViewController.h"
+#import "TabBarViewController.h"
+#import "TableViewController.h"
+#import "ViewController.h"
+#import "ViewController1.h"
+#import "ViewController2.h"
 
 @interface AppDelegate ()
 
@@ -20,6 +24,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [AXResponderSchemaManager registerSchema:@"tabbarviewcontroller" forClass:TabBarViewController.class];
+    [AXResponderSchemaManager registerSchema:@"tableview" forClass:TableViewController.class];
+    [AXResponderSchemaManager registerSchema:@"viewcontroller" forClass:ViewController.class];
+    [AXResponderSchemaManager registerSchema:@"viewcontroller1" forClass:ViewController1.class];
+    [AXResponderSchemaManager registerSchema:@"viewcontroller2" forClass:ViewController2.class];
     
     NSLog(@"Tab bar controller: %@", NSStringFromClass([UIViewController classForSchemaIdentifier:@"tabbarviewcontroller"]));
     NSLog(@"Table view controller: %@", NSStringFromClass([UIViewController classForSchemaIdentifier:@"tableview"]));

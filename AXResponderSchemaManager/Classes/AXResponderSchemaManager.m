@@ -87,22 +87,45 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
     return [self _openSchemaWithSchemaComponents:[AXResponderSchemaComponents componentsWithURL:url] completion:completion viewDidAppearSchema:viewDidAppear];
 }
 
-+ (void)registerSchema:(NSString *)schemaIdentifier forClass:(NSString *)classIdentifier {
-    if ([self classForSchema:schemaIdentifier] != NULL || ![classIdentifier isKindOfClass:NSString.class]) return;
-    [[NSUserDefaults standardUserDefaults] setObject:classIdentifier forKey:[NSString stringWithFormat:@"_axresponderschema_%@", schemaIdentifier]];
++ (void)registerSchema:(NSString *)schemaIdentifier forClass:(Class)class {
+    if ([self classForSchema:schemaIdentifier] != NULL) return;
+    
+    Class supcls = class;
+    BOOL shouldRegisterTheClass = NO;
+    while (supcls != NULL && !class_isMetaClass(supcls)) {
+        supcls = class_getSuperclass(supcls);
+        if (supcls == UIViewController.class) {
+            shouldRegisterTheClass = YES; break;
+        }
+    }
+    
+    NSAssert(shouldRegisterTheClass, @"The class to be registered must be the subclass of the UIViewController.");
+    
+    [[NSUserDefaults standardUserDefaults] setObject:NSStringFromClass(class) forKey:[NSString stringWithFormat:@"_axresponderschema_%@", schemaIdentifier]];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (void)registerSchema:(NSString *)schemaIdentifier forClass:(Class)class {
+    [self.class registerSchema:schemaIdentifier forClass:class];
+}
+
 + (void)unregisterSchema:(NSString *)schemaIdentifier {
-    if ([self classForSchema:schemaIdentifier] == NULL || ![schemaIdentifier isKindOfClass:NSString.class]) return;
+    if ([self classForSchema:schemaIdentifier] == NULL) return;
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:[NSString stringWithFormat:@"_axresponderschema_%@", schemaIdentifier]];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (void)unregisterSchema:(NSString *)schemaIdentifier {
+    [self.class unregisterSchema:schemaIdentifier];
+}
+
 + (Class)classForSchema:(NSString *)schemaIdentifier {
-    if (![schemaIdentifier isKindOfClass:NSString.class]) return NULL;
     NSString *classIdentifier = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"_axresponderschema_%@", schemaIdentifier]];
     return NSClassFromString(classIdentifier);
+}
+
+- (Class)classForSchema:(NSString *)schemaIdentifier {
+    return [self.class classForSchema:schemaIdentifier];
 }
 #pragma mark - Private
 - (BOOL)_canOpenURL:(NSURL *)url {

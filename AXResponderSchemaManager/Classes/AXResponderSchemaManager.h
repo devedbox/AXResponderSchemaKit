@@ -56,13 +56,15 @@ extern NSString *const kAXResponderSchemaTabBarControllerIdentifier;
 /// Register a class identifier for a specific schema identifier.
 ///
 /// @param schemaIdentifier schema identifier to be registered.
-/// @param classIdentifier  class identifier for the schema.
+/// @param class  class for the schema.
 ///
-+ (void)registerSchema:(NSString *)schemaIdentifier forClass:(NSString *)classIdentifier;
++ (void)registerSchema:(NSString *)schemaIdentifier forClass:(Class)class;
+- (void)registerSchema:(NSString *)schemaIdentifier forClass:(Class)class;
 /// Unregister the class identifier for the specific schema identifier and remove the configuration.
 ///
 /// @param schemaIdentifier schema identifier to be unregistered.
 + (void)unregisterSchema:(NSString *)schemaIdentifier;
+- (void)unregisterSchema:(NSString *)schemaIdentifier;
 /// Get the class of the schema identifier.
 ///
 /// @discusstion The manager will check from the view controller fisrt (UIViewController+Schema) to get the class.
@@ -73,6 +75,7 @@ extern NSString *const kAXResponderSchemaTabBarControllerIdentifier;
 ///
 /// @return Class for the schema. Can be NULL.
 + (Class _Nullable)classForSchema:(NSString *)schemaIdentifier;
+- (Class _Nullable)classForSchema:(NSString *)schemaIdentifier;
 /// Open url.
 ///
 /// @param url url to be opened.

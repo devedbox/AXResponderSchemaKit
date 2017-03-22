@@ -13,7 +13,7 @@
 @interface ViewController ()
 
 @end
-
+@class ViewController1;
 @implementation ViewController
 
 + (Class)classForSchemaIdentifier:(NSString *)schemaIdentifier {
@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [AXResponderSchemaManager registerSchema:@"viewcontroller1" forClass:@"ViewController1"];
+    [AXResponderSchemaManager registerSchema:@"viewcontroller1" forClass:NSClassFromString(@"ViewController1")];
 }
 
 

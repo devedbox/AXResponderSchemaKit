@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2333a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="2a8-ee-4dD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="2a8-ee-4dD">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,7 +27,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d9z-fk-EB5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1895" y="178"/>
+            <point key="canvasLocation" x="-1871" y="-147"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="3NS-P4-w1t">
@@ -73,21 +76,21 @@
                             <tableViewSection id="v09-fd-32M">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="We5-GR-sXf" detailTextLabel="hGs-ty-MPu" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="pjX-lB-kaH">
-                                        <rect key="frame" x="0.0" y="64" width="375" height="64"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pjX-lB-kaH" id="ppC-qd-1jI">
-                                            <frame key="frameInset" width="375" height="63.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="63"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Tab bar controller" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="We5-GR-sXf">
-                                                    <frame key="frameInset" minX="15" minY="7" width="135" height="20.5"/>
+                                                    <rect key="frame" x="15" y="7" width="135" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="axviewcontrollerschema://viewcontroller/tabbar?navigation=2&amp;selectedindex=1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hGs-ty-MPu">
-                                                    <frame key="frameInset" minX="15" minY="27.5" width="275" height="29"/>
+                                                    <rect key="frame" x="15" y="28" width="275" height="29"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
@@ -97,21 +100,21 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="ksk-RX-0C2" detailTextLabel="VH5-Ym-d15" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="5LX-2x-Jcg">
-                                        <rect key="frame" x="0.0" y="128" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="64" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5LX-2x-Jcg" id="sNJ-kC-d7e">
-                                            <frame key="frameInset" width="375" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Navigation push" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ksk-RX-0C2">
-                                                    <frame key="frameInset" minX="15" minY="5" width="123.5" height="20.5"/>
+                                                    <rect key="frame" x="15" y="5" width="124" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="axviewcontrollerschema://viewcontroller/viewcontroller1?navigation=0&amp;animated=1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VH5-Ym-d15">
-                                                    <frame key="frameInset" minX="15" minY="25.5" width="323" height="29"/>
+                                                    <rect key="frame" x="15" y="26" width="323" height="29"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
@@ -121,21 +124,21 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="0cA-m2-ANd" detailTextLabel="5f3-of-c5h" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="2ZA-eJ-vNk">
-                                        <rect key="frame" x="0.0" y="188" width="375" height="64"/>
+                                        <rect key="frame" x="0.0" y="124" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2ZA-eJ-vNk" id="U7c-LW-nBy">
-                                            <frame key="frameInset" width="375" height="63.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="63"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Present" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0cA-m2-ANd">
-                                                    <frame key="frameInset" minX="15" minY="7" width="59" height="20.5"/>
+                                                    <rect key="frame" x="15" y="7" width="59" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="axviewcontrollerschema://viewcontroller/show2?navigation=1&amp;animated=1&amp;class=ViewController2" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5f3-of-c5h">
-                                                    <frame key="frameInset" minX="15" minY="27.5" width="280.5" height="29"/>
+                                                    <rect key="frame" x="15" y="28" width="281" height="29"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
@@ -145,21 +148,21 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="fLw-7j-x7c" detailTextLabel="IQ2-zo-MDR" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="5hg-cT-81L">
-                                        <rect key="frame" x="0.0" y="252" width="375" height="64"/>
+                                        <rect key="frame" x="0.0" y="188" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5hg-cT-81L" id="x6c-mL-du6">
-                                            <frame key="frameInset" width="375" height="63.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="63"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Action" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fLw-7j-x7c">
-                                                    <frame key="frameInset" minX="15" minY="7" width="49" height="20.5"/>
+                                                    <rect key="frame" x="15" y="7" width="49" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="axviewcontrollerschema://control/switch?navigation=0&amp;animated=1&amp;action=64" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IQ2-zo-MDR">
-                                                    <frame key="frameInset" minX="15" minY="27.5" width="235" height="29"/>
+                                                    <rect key="frame" x="15" y="28" width="235" height="29"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
@@ -169,21 +172,21 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="qYt-q6-z6Z" detailTextLabel="sko-ys-ieO" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="70r-kz-Ejx">
-                                        <rect key="frame" x="0.0" y="316" width="375" height="64"/>
+                                        <rect key="frame" x="0.0" y="252" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="70r-kz-Ejx" id="tsp-i1-jwN">
-                                            <frame key="frameInset" width="375" height="63.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="63"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Alert" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qYt-q6-z6Z">
-                                                    <frame key="frameInset" minX="15" minY="7" width="37" height="20.5"/>
+                                                    <rect key="frame" x="15" y="7" width="37" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="axviewcontrollerschema://viewcontroller/alErT?title=测试&amp;message=这是一条测试消息" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sko-ys-ieO">
-                                                    <frame key="frameInset" minX="15" minY="27.5" width="320" height="29"/>
+                                                    <rect key="frame" x="15" y="28" width="320" height="29"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
@@ -193,21 +196,21 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="H27-9Z-Dtc" detailTextLabel="1o7-yB-8Mc" rowHeight="44" style="IBUITableViewCellStyleSubtitle" id="JYI-9C-DBm">
-                                        <rect key="frame" x="0.0" y="380" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="316" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JYI-9C-DBm" id="YdN-rk-mmh">
-                                            <frame key="frameInset" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="None" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="H27-9Z-Dtc">
-                                                    <frame key="frameInset" minX="15" minY="5" width="41" height="20.5"/>
+                                                    <rect key="frame" x="15" y="4" width="41" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="axviewcontrollerschema://viewcontroller/viewcontroller" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1o7-yB-8Mc">
-                                                    <frame key="frameInset" minX="15" minY="25.5" width="311" height="14.5"/>
+                                                    <rect key="frame" x="15" y="25" width="311" height="15"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
@@ -262,23 +265,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Iga-1u-oFL">
+                                <rect key="frame" x="163" y="318" width="51" height="31"/>
                                 <connections>
                                     <action selector="switchaaa:" destination="zbX-Bu-VaY" eventType="valueChanged" id="Syw-hz-n45"/>
                                 </connections>
                             </switch>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="6gg-rZ-WuS">
+                                <rect key="frame" x="8" y="260" width="359" height="30"/>
                                 <state key="normal" title="axviewcontrollerschema://control/switch?navigation=0&amp;animated=1&amp;action=64"/>
                                 <connections>
                                     <action selector="sendSwitch:" destination="zbX-Bu-VaY" eventType="touchUpInside" id="YJL-Fr-LDA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="K6s-yz-f5x">
+                                <rect key="frame" x="16" y="374" width="343" height="30"/>
                                 <state key="normal" title="axviewcontrollerschema://viewcontroller/show2?navigation=1&amp;animated=1&amp;class=ViewController2"/>
                                 <connections>
                                     <action selector="showViewController2:" destination="zbX-Bu-VaY" eventType="touchUpInside" id="qS9-Dd-y9O"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="D5O-n7-epE">
+                                <rect key="frame" x="16" y="424" width="343" height="30"/>
                                 <state key="normal" title="axviewcontrollerschema://viewcontroller/table?navigation=0&amp;animated=1&amp;class=TableViewController"/>
                                 <connections>
                                     <action selector="showTableViewController:" destination="zbX-Bu-VaY" eventType="touchUpInside" id="YbW-Xq-k2w"/>
@@ -324,6 +331,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="cNq-3e-NrD">
+                                <rect key="frame" x="16" y="318.5" width="343" height="30"/>
                                 <state key="normal" title="axviewcontrollerschema://viewcontroller/viewcontroller1?navigation=0&amp;animated=1"/>
                                 <connections>
                                     <action selector="showViewController1:" destination="inW-I4-0Ja" eventType="touchUpInside" id="Ut8-TO-1p2"/>

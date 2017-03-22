@@ -31,7 +31,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    [AXResponderSchemaManager registerSchema:@"switch" forClass:@"ViewController1"];
+    [AXResponderSchemaManager registerSchema:@"switch" forClass:NSClassFromString(@"ViewController1")];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
