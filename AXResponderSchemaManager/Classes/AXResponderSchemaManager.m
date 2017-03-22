@@ -332,7 +332,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     });
                 } else {
                     // Get navigation class.
-                    Class navigationClass = class_respondsToSelector(schemaClass, @selector(classForNavigationController))?[schemaClass classForNavigationController]:_navigationControllClass?:UINavigationController.class;
+                    Class navigationClass = class_respondsToSelector(schemaClass, @selector(classForNavigationController))?[schemaClass classForNavigationController]:_navigationControllerClass?:UINavigationController.class;
                     // Verify class.
                     if (class_isMetaClass(navigationClass)) return NO;
                     if (![navigationClass isSubclassOfClass:UINavigationController.class]) {

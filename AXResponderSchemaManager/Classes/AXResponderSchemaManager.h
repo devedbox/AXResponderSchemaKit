@@ -42,7 +42,7 @@ extern NSString *const kAXResponderSchemaTabBarControllerIdentifier;
 /// App schema.
 @property(copy, nonatomic) NSString *appSchema;
 /// Class for navigation controller.
-@property(nullable, copy, nonatomic) Class navigationControllClass;
+@property(nullable, copy, nonatomic) Class navigationControllerClass;
 /// View controller to show the new added view controller.
 @property(nullable, weak, nonatomic) UIViewController *viewController;
 /// Tab bar controller to show selectd view controller.
