@@ -406,7 +406,9 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                 // Get the navigation controller.
                 UINavigationController *navigationController = _navigationController ?: [self _rootNavigationController];
                 
-                if (!navigationController) return NO;
+                if (!navigationController) {
+                    _ALERT_ISSUE(); return NO;
+                }
                 
                 if (force) {
                     if (!viewController) {
