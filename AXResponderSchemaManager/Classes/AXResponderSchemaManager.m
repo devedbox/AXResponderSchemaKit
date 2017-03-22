@@ -245,7 +245,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                             // Call the resolve method to resolve the schema with params.
                             [topViewController resolveSchemaWithParams:components.params];
                             return YES;
-                        }
+                        } else return NO;
                     } if ([topViewController isKindOfClass:[UINavigationController class]]) { // Class of top view controller is kind of UINavigationController.
                         // Get the navigation controller.
                         UINavigationController *navigationController = (UINavigationController *)topViewController;
@@ -257,7 +257,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                             if (shouldResolveSchema) {
                                 [navigationController.topViewController resolveSchemaWithParams:components.params];
                                 return YES;
-                            }
+                            } else return NO;
                         }
                     } if (topViewController.topPresentedViewController) {
                         // Get top presented view controller.
@@ -271,7 +271,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                             if (shouldResolveSchema) {
                                 [presentedViewController resolveSchemaWithParams:components.params];
                                 return YES;
-                            }
+                            } else return NO;
                         } if ([presentedViewController isKindOfClass:[UINavigationController class]]) {
                             // Get the navigation controller.
                             UINavigationController *navigationController = (UINavigationController *)presentedViewController;
@@ -283,7 +283,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                                 if (shouldResolveSchema) {
                                     [navigationController.topViewController resolveSchemaWithParams:components.params];
                                     return YES;
-                                }
+                                } else return NO;
                             }
                         }
                     } if ([topViewController presentingViewController]) {
@@ -301,7 +301,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                                 });
                                 [presentingViewController resolveSchemaWithParams:components.params];
                                 return YES;
-                            }
+                            } else return NO;
                         } if ([presentingViewController isKindOfClass:[UINavigationController class]]) {
                             // Get the navigation controller.
                             UINavigationController *navigationController = (UINavigationController *)presentingViewController;
@@ -316,7 +316,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                                     });
                                     [navigationController.topViewController resolveSchemaWithParams:components.params];
                                     return YES;
-                                }
+                                } else return NO;
                             }
                         }
                     }
@@ -327,6 +327,13 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                 if (!viewController) {
                     _ALERT_ISSUE(); return NO;
                 }
+                
+                [viewController resolveSchemaWithURL:components.URL];
+                BOOL shouldResloveSchema = [viewController shouldResolveSchemaWithParams:components.params];
+                if (shouldResloveSchema) {
+                    [viewController resolveSchemaWithParams:components.params];
+                } else return NO;
+                
                 // If none of view controller to show of, then set with the top view controller.
                 if (!viewControllerToShowOf) {
                     viewControllerToShowOf = topViewController;
@@ -415,7 +422,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                 
                 NSInteger index = [self _indexOfClass:schemaClass inNavigationController:&navigationController exists:&exitsViewController animated:animated];
                 
-                if (index == -1) {
+                if (index == -1) { // Dismiss the presented view controller.
                     [exitsViewController resolveSchemaWithURL:components.URL];
                     BOOL shouldResolveSchema = [exitsViewController shouldResolveSchemaWithParams:components.params];
                     
@@ -432,7 +439,6 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [navigationController dismissViewControllerAnimated:animated completion:NULL];
                     });
-                    [exitsViewController resolveSchemaWithURL:components.URL];
                     [exitsViewController resolveSchemaWithParams:components.params];
                 } else if (index == NSNotFound) {
                     if (!viewController) {
