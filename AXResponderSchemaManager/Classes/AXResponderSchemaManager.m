@@ -377,7 +377,7 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     }
                 }
                 if (!tabBarController) {
-                    return NO;
+                    _ALERT_ISSUE(); return NO;
                 } else {
                     if (components.selectedIndex > tabBarController.viewControllers.count-1) {
                         return NO;
