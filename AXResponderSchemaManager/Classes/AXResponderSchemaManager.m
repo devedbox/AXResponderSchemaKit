@@ -414,6 +414,12 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                     if (!viewController) {
                         _ALERT_ISSUE(); return NO;
                     }
+                    
+                    [viewController resolveSchemaWithURL:components.URL];
+                    if ([viewController shouldResolveSchemaWithParams:components.params]) {
+                        [viewController resolveSchemaWithParams:components.params];
+                    } else return NO;
+                    
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [navigationController pushViewController:viewController animated:animated];
                     });
@@ -425,50 +431,46 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                 NSInteger index = [self _indexOfClass:schemaClass inNavigationController:&navigationController exists:&exitsViewController animated:animated];
                 
                 if (index == -1) { // Dismiss the presented view controller.
+                    if (!exitsViewController) {
+                        _ALERT_ISSUE(); return NO;
+                    }
+                    
                     [exitsViewController resolveSchemaWithURL:components.URL];
                     BOOL shouldResolveSchema = [exitsViewController shouldResolveSchemaWithParams:components.params];
-                    
-                    if (!shouldResolveSchema) {
-                        if (!viewController) {
-                            _ALERT_ISSUE(); return NO;
-                        }
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [navigationController pushViewController:viewController animated:animated];
-                        });
-                        return YES;
-                    }
+                    if (shouldResolveSchema) {
+                        [exitsViewController resolveSchemaWithParams:components.params];
+                    } else return NO;
                     
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [navigationController dismissViewControllerAnimated:animated completion:NULL];
                     });
-                    [exitsViewController resolveSchemaWithParams:components.params];
                 } else if (index == NSNotFound) {
                     if (!viewController) {
-                        _ALERT_ISSUE();
-                        return NO;
+                        _ALERT_ISSUE(); return NO;
                     }
+                    
+                    [viewController resolveSchemaWithURL:components.URL];
+                    if ([viewController shouldResolveSchemaWithParams:components.params]) {
+                        [viewController resolveSchemaWithParams:components.params];
+                    } else return NO;
+                    
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [navigationController pushViewController:viewController animated:animated];
                     });
                 } else {
-                    BOOL shouldResolveSchema = [exitsViewController shouldResolveSchemaWithParams:components.params];
-                    
-                    if (!shouldResolveSchema) {
-                        if (!viewController) {
-                            _ALERT_ISSUE();
-                            return NO;
-                        }
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [navigationController pushViewController:viewController animated:animated];
-                        });
-                        return YES;
+                    if (!exitsViewController) {
+                        _ALERT_ISSUE(); return NO;
                     }
+                    
+                    [exitsViewController resolveSchemaWithURL:components.URL];
+                    BOOL shouldResolveSchema = [exitsViewController shouldResolveSchemaWithParams:components.params];
+                    if (shouldResolveSchema) {
+                        [exitsViewController resolveSchemaWithParams:components.params];
+                    } else return NO;
+                    
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [navigationController popToViewController:navigationController.viewControllers[index] animated:animated];
                     });
-                    
-                    [exitsViewController resolveSchemaWithURL:components.URL];
-                    [exitsViewController resolveSchemaWithParams:components.params];
                 }
                 return YES;
             } break;
