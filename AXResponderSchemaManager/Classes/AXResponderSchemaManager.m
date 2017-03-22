@@ -228,102 +228,108 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
         // Get the navitation.
         switch (components.navigation) {
             case AXSchemaNavigationPresent: {
+                // Get the top view controller of the application.
                 UIViewController *topViewController = [self _topViewController];
-
+                // Handle openning view controller without force.
                 if (!force) {
+                    // Should resolve the schema, default is YES.
                     BOOL shouldResolveSchema=YES;
-                    if ([topViewController isMemberOfClass:schemaClass]) {
-                        
+                    // Handle with top view controller.
+                    if ([topViewController isMemberOfClass:schemaClass]) { // Top view controller is an instance of the class for the schema.
+                        // Make the top view controller resolve the original url.
                         [topViewController resolveSchemaWithURL:components.URL];
-                        
+                        // Get flag to resolve the schema with params of the schema.
                         shouldResolveSchema = [topViewController shouldResolveSchemaWithParams:components.params];
-                        
+                        // If should resolve schema, resolve the schema with params and return YES since the top view controller is an instance of the class for the schema and without force.
                         if (shouldResolveSchema) {
+                            // Call the resolve method to resolve the schema with params.
                             [topViewController resolveSchemaWithParams:components.params];
                             return YES;
                         }
-                    }
-                    if ([topViewController isKindOfClass:[UINavigationController class]]) {
-                        if ([[(UINavigationController*)topViewController topViewController] isMemberOfClass:schemaClass]) {
+                    } if ([topViewController isKindOfClass:[UINavigationController class]]) { // Class of top view controller is kind of UINavigationController.
+                        // Get the navigation controller.
+                        UINavigationController *navigationController = (UINavigationController *)topViewController;
+                        if ([navigationController.topViewController isMemberOfClass:schemaClass]) {
                             
-                            [[(UINavigationController*)topViewController topViewController] resolveSchemaWithURL:components.URL];
-                            
-                            shouldResolveSchema = [[(UINavigationController*)topViewController topViewController] shouldResolveSchemaWithParams:components.params];
+                            [navigationController.topViewController resolveSchemaWithURL:components.URL];
+                            shouldResolveSchema = [navigationController.topViewController shouldResolveSchemaWithParams:components.params];
                             
                             if (shouldResolveSchema) {
-                                [[(UINavigationController*)topViewController topViewController] resolveSchemaWithParams:components.params];
+                                [navigationController.topViewController resolveSchemaWithParams:components.params];
                                 return YES;
                             }
                         }
-                    }
-                    if ([topViewController presentedViewController]) {
-                        if ([[topViewController presentedViewController] isMemberOfClass:schemaClass]) {
+                    } if (topViewController.topPresentedViewController) {
+                        // Get top presented view controller.
+                        UIViewController *presentedViewController = topViewController.topPresentedViewController;
+                        
+                        if ([presentedViewController isMemberOfClass:schemaClass]) {
                             
-                            [[topViewController presentedViewController] resolveSchemaWithURL:components.URL];
-                            
-                            shouldResolveSchema = [[topViewController presentedViewController] shouldResolveSchemaWithParams:components.params];
+                            [presentedViewController resolveSchemaWithURL:components.URL];
+                            shouldResolveSchema = [presentedViewController shouldResolveSchemaWithParams:components.params];
                             
                             if (shouldResolveSchema) {
-                                [[topViewController presentedViewController] resolveSchemaWithParams:components.params];
+                                [presentedViewController resolveSchemaWithParams:components.params];
                                 return YES;
                             }
-                        }
-                        if ([[topViewController presentedViewController] isKindOfClass:[UINavigationController class]]) {
-                            if ([[(UINavigationController*)[topViewController presentedViewController] topViewController] isMemberOfClass:schemaClass]) {
+                        } if ([presentedViewController isKindOfClass:[UINavigationController class]]) {
+                            // Get the navigation controller.
+                            UINavigationController *navigationController = (UINavigationController *)presentedViewController;
+                            if ([navigationController.topViewController isMemberOfClass:schemaClass]) {
                                 
-                                [[(UINavigationController*)[topViewController presentedViewController] topViewController] resolveSchemaWithURL:components.URL];
-                                
-                                shouldResolveSchema = [[(UINavigationController*)[topViewController presentedViewController] topViewController] shouldResolveSchemaWithParams:components.params];
+                                [navigationController.topViewController resolveSchemaWithURL:components.URL];
+                                shouldResolveSchema = [navigationController.topViewController shouldResolveSchemaWithParams:components.params];
                                 
                                 if (shouldResolveSchema) {
-                                    [[(UINavigationController*)[topViewController presentedViewController] topViewController] resolveSchemaWithParams:components.params];
+                                    [navigationController.topViewController resolveSchemaWithParams:components.params];
                                     return YES;
                                 }
                             }
                         }
-                    }
-                    if ([topViewController presentingViewController]) {
-                        if ([[topViewController presentingViewController] isMemberOfClass:schemaClass]) {
+                    } if ([topViewController presentingViewController]) {
+                        // Get the presenting view controller.
+                        UIViewController *presentingViewController = topViewController.presentingViewController;
+                        
+                        if ([presentingViewController isMemberOfClass:schemaClass]) {
                             
-                            [[topViewController presentingViewController] resolveSchemaWithURL:components.URL];
-                            
-                            shouldResolveSchema = [[topViewController presentingViewController] shouldResolveSchemaWithParams:components.params];
+                            [presentingViewController resolveSchemaWithURL:components.URL];
+                            shouldResolveSchema = [presentingViewController shouldResolveSchemaWithParams:components.params];
                             
                             if (shouldResolveSchema) {
                                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                     [topViewController dismissViewControllerAnimated:animated completion:NULL];
                                 });
-                                [[topViewController presentingViewController] resolveSchemaWithParams:components.params];
+                                [presentingViewController resolveSchemaWithParams:components.params];
                                 return YES;
                             }
-                        }
-                        if ([[topViewController presentingViewController] isKindOfClass:[UINavigationController class]]) {
-                            if ([[(UINavigationController*)[topViewController presentedViewController] topViewController] isMemberOfClass:schemaClass]) {
+                        } if ([presentingViewController isKindOfClass:[UINavigationController class]]) {
+                            // Get the navigation controller.
+                            UINavigationController *navigationController = (UINavigationController *)presentingViewController;
+                            if ([navigationController.topViewController isMemberOfClass:schemaClass]) {
                                 
-                                [[topViewController presentingViewController] resolveSchemaWithURL:components.URL];
-                                
-                                shouldResolveSchema = [[(UINavigationController*)[topViewController presentedViewController] topViewController] shouldResolveSchemaWithParams:components.params];
+                                [navigationController.topViewController resolveSchemaWithURL:components.URL];
+                                shouldResolveSchema = [navigationController.topViewController shouldResolveSchemaWithParams:components.params];
                                 
                                 if (shouldResolveSchema) {
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                         [topViewController dismissViewControllerAnimated:animated completion:NULL];
                                     });
-                                    [[(UINavigationController*)[topViewController presentedViewController] topViewController] resolveSchemaWithParams:components.params];
+                                    [navigationController.topViewController resolveSchemaWithParams:components.params];
                                     return YES;
                                 }
                             }
                         }
                     }
                 }
+                // If with force or no instance without force.
                 
+                // Show the alert if none of view controller.
+                if (!viewController) {
+                    _ALERT_ISSUE(); return NO;
+                }
+                // If none of view controller to show of, then set with the top view controller.
                 if (!viewControllerToShowOf) {
                     viewControllerToShowOf = topViewController;
-                }
-                
-                // Show the alert.
-                if (!viewController) {
-                    _ALERT_ISSUE();
-                    return NO;
                 }
                 
                 if ([viewController isKindOfClass:UINavigationController.class] || [viewController isKindOfClass:UIAlertController.class]) { // Presented with nagigation controller.
@@ -331,15 +337,15 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
                         [viewControllerToShowOf presentViewController:viewController animated:animated completion:NULL];
                     });
                 } else {
-                    // Get navigation class.
-                    Class navigationClass = class_respondsToSelector(schemaClass, @selector(classForNavigationController))?[schemaClass classForNavigationController]:_navigationControllerClass?:UINavigationController.class;
+                    // Get navigation controller class.
+                    Class navigationControllerClass = class_respondsToSelector(schemaClass, @selector(classForNavigationController))?[schemaClass classForNavigationController]:_navigationControllerClass?:UINavigationController.class;
                     // Verify class.
-                    if (class_isMetaClass(navigationClass)) return NO;
-                    if (![navigationClass isSubclassOfClass:UINavigationController.class]) {
+                    if (class_isMetaClass(navigationControllerClass)) return NO;
+                    if (![navigationControllerClass isSubclassOfClass:UINavigationController.class]) {
                         return NO;
                     }
                     // Initialize a navigation controller.
-                    UINavigationController *navigationController = [[navigationClass alloc] initWithRootViewController:viewController];
+                    UINavigationController *navigationController = [[navigationControllerClass alloc] initWithRootViewController:viewController];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(components.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [viewControllerToShowOf presentViewController:navigationController animated:animated completion:NULL];
                     });
