@@ -109,6 +109,14 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
     [self.class registerSchema:schemaIdentifier forClass:class];
 }
 
++ (void)registerClass:(Class)class {
+    [self registerSchema:NSStringFromClass(class) forClass:class];
+}
+
+- (void)registerClass:(Class)class {
+    [self.class registerClass:class];
+}
+
 + (void)unregisterSchema:(NSString *)schemaIdentifier {
     if ([self classForSchema:schemaIdentifier] == NULL) return;
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:[NSString stringWithFormat:@"_axresponderschema_%@", schemaIdentifier]];

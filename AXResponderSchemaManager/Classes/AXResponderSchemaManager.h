@@ -60,6 +60,8 @@ extern NSString *const kAXResponderSchemaTabBarControllerIdentifier;
 ///
 + (void)registerSchema:(NSString *)schemaIdentifier forClass:(Class)class;
 - (void)registerSchema:(NSString *)schemaIdentifier forClass:(Class)class;
++ (void)registerClass:(Class)class;
+- (void)registerClass:(Class)class;
 /// Unregister the class identifier for the specific schema identifier and remove the configuration.
 ///
 /// @param schemaIdentifier schema identifier to be unregistered.
