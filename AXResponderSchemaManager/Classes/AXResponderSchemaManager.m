@@ -509,7 +509,6 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
             [params setObject:@(.0) forKey:@"delay"];
             [components setValue:[params copy] forKey:@"params"];
             return [self _openSchemaWithSchemaComponents:components completion:nil viewDidAppearSchema:components.URL];
-            return YES;
         }
     }
     return NO;
