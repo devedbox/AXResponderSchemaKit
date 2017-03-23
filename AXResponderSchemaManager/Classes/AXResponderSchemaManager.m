@@ -167,6 +167,30 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
     if (![schemaClass allowsForSchameIdentifier:components.identifier]) return NO;
     
     if ((![UIApplication sharedApplication].keyWindow.rootViewController) && ![components.identifier isEqualToString:kAXResponderSchemaTabBarControllerIdentifier]) return NO;
+    
+    void(^_ALERT_ISSUE)() = ^() {
+        // Show the alert.
+        [components setValue:@"alert" forKeyPath:@"identifier"];
+        // Set title.
+        NSString *title = AXResponderSchemaManagerLocalizedString(@"openfailed", @"Openfailed");
+        // Set message.
+        NSString *message = AXResponderSchemaManagerLocalizedString(@"openissue", @"Openissue");
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_9_0) {
+            title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            message = [message stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];;
+        } else {
+            NSString *charactersToEscape = @"?!@#$^&%*+,:;='\"`<>()[]{}/\\| ";
+            NSCharacterSet *allowedCharacters = [[NSCharacterSet characterSetWithCharactersInString:charactersToEscape] invertedSet];
+            title = [title stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
+            message = [message stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
+        }
+#pragma clang diagnostic pop
+        // Open alert controller.
+        [self openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@://viewcontroller/alert?title=%@&message=%@", components.scheme, title, message]]];
+    };
+    
     // Handle the moudles.
     if ([components.module isEqualToString:kAXResponderSchemaModuleUIViewController]) { // View controller -> Show and hide.
         // Do not open if the class for the schema is not the subclass of the UIViewController.
@@ -201,29 +225,6 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
         if (components.params[kAXResponderSchemaAnimatedKey]) {
             animated = components.animated;
         }
-        
-        void(^_ALERT_ISSUE)() = ^() {
-            // Show the alert.
-            [components setValue:@"alert" forKeyPath:@"identifier"];
-            // Set title.
-            NSString *title = AXResponderSchemaManagerLocalizedString(@"openfailed", @"Openfailed");
-            // Set message.
-            NSString *message = AXResponderSchemaManagerLocalizedString(@"openissue", @"Openissue");
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_9_0) {
-                title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                message = [message stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];;
-            } else {
-                NSString *charactersToEscape = @"?!@#$^&%*+,:;='\"`<>()[]{}/\\| ";
-                NSCharacterSet *allowedCharacters = [[NSCharacterSet characterSetWithCharactersInString:charactersToEscape] invertedSet];
-                title = [title stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
-                message = [message stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
-            }
-#pragma clang diagnostic pop
-            // Open alert controller.
-            [self openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@://viewcontroller/alert?title=%@&message=%@", components.scheme, title, message]]];
-        };
         
         // Get the navitation.
         switch (components.navigation) {
@@ -483,10 +484,17 @@ NSString *const kAXResponderSchemaCompletionURLKey = @"completion";
         
         // Get the top view controller.
         UIViewController *topViewController = [self _topViewController];
+        if (!topViewController) {
+            _ALERT_ISSUE(); return NO;
+        }
+        
         if ([topViewController isMemberOfClass:schemaClass]) {
             // Resolve the params.
             [topViewController resolveSchemaWithURL:components.URL];
-            [topViewController resolveSchemaWithParams:components.params];
+            if ([topViewController shouldResolveSchemaWithParams:components.params]) {
+                [topViewController resolveSchemaWithParams:components.params];
+            } else return NO;
+            
             // Get control.
             UIControl *control = [topViewController UIControlOfViewControllerForIdentifier:components.identifier];
             if (!control) return NO;
