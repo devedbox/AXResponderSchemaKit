@@ -48,7 +48,7 @@
     
     switch (indexPath.row) {
         case 0:
-            [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:@"axviewcontrollerschema://viewcontroller/tabbar?navigation=2&selectedindex=1&delay=1.0"]];
+            [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:@"axviewcontrollerschema://viewcontroller/tabbar?navigation=2&selectedindex=1"]];
             break;
         case 1:
             [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:@"axviewcontrollerschema://viewcontroller/viewcontroller1?navigation=0&animated=1"]];

@@ -25,7 +25,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [AXResponderSchemaManager registerSchema:@"tabbarviewcontroller" forClass:TabBarViewController.class];
+    [AXResponderSchemaManager registerSchema:@"tabbar" forClass:TabBarViewController.class];
     [AXResponderSchemaManager registerSchema:@"tableview" forClass:TableViewController.class];
     [AXResponderSchemaManager registerSchema:@"viewcontroller" forClass:ViewController.class];
     [AXResponderSchemaManager registerSchema:@"viewcontroller1" forClass:ViewController1.class];

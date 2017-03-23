@@ -41,7 +41,7 @@
 }
 
 - (IBAction)sendSwitch:(id)sender {
-    [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"axviewcontrollerschema://control/switch?navigation=0&animated=1&action=%@&delay=1.0", @(1 << 12)]]];
+    [[AXResponderSchemaManager sharedManager] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"axviewcontrollerschema://control/switch?navigation=0&animated=1&action=%@", @(1 << 12)]]];
 }
 
 - (IBAction)showViewController2:(id)sender {
