@@ -12,7 +12,7 @@
 		DC23E9C91E8CF059003D86AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC23E9A71E8CF059003D86AD /* LaunchScreen.storyboard */; };
 		DC23E9CA1E8CF059003D86AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC23E9A91E8CF059003D86AD /* Main.storyboard */; };
 		DC23E9CB1E8CF059003D86AD /* AXResponderSchemaComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = DC23E9AD1E8CF059003D86AD /* AXResponderSchemaComponents.m */; };
-		DC23E9CC1E8CF059003D86AD /* AXResponderSchemaManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DC23E9B01E8CF059003D86AD /* AXResponderSchemaManager.bundle */; };
+		DC23E9CC1E8CF059003D86AD /* AXResponderSchemaKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DC23E9B01E8CF059003D86AD /* AXResponderSchemaKit.bundle */; };
 		DC23E9CD1E8CF059003D86AD /* AXResponderSchemaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DC23E9B21E8CF059003D86AD /* AXResponderSchemaManager.m */; };
 		DC23E9CE1E8CF059003D86AD /* UIAlertController+Schema.m in Sources */ = {isa = PBXBuildFile; fileRef = DC23E9B41E8CF059003D86AD /* UIAlertController+Schema.m */; };
 		DC23E9CF1E8CF059003D86AD /* UIViewController+Schema.m in Sources */ = {isa = PBXBuildFile; fileRef = DC23E9B61E8CF059003D86AD /* UIViewController+Schema.m */; };
@@ -54,7 +54,7 @@
 		DC23E9AD1E8CF059003D86AD /* AXResponderSchemaComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AXResponderSchemaComponents.m; sourceTree = "<group>"; };
 		DC23E9AE1E8CF059003D86AD /* AXResponderSchemaConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXResponderSchemaConstant.h; sourceTree = "<group>"; };
 		DC23E9AF1E8CF059003D86AD /* AXResponderSchemaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXResponderSchemaKit.h; sourceTree = "<group>"; };
-		DC23E9B01E8CF059003D86AD /* AXResponderSchemaManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AXResponderSchemaManager.bundle; sourceTree = "<group>"; };
+		DC23E9B01E8CF059003D86AD /* AXResponderSchemaKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AXResponderSchemaKit.bundle; sourceTree = "<group>"; };
 		DC23E9B11E8CF059003D86AD /* AXResponderSchemaManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXResponderSchemaManager.h; sourceTree = "<group>"; };
 		DC23E9B21E8CF059003D86AD /* AXResponderSchemaManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AXResponderSchemaManager.m; sourceTree = "<group>"; };
 		DC23E9B31E8CF059003D86AD /* UIAlertController+Schema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Schema.h"; sourceTree = "<group>"; };
@@ -136,7 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				DC23E9AF1E8CF059003D86AD /* AXResponderSchemaKit.h */,
-				DC23E9B01E8CF059003D86AD /* AXResponderSchemaManager.bundle */,
+				DC23E9B01E8CF059003D86AD /* AXResponderSchemaKit.bundle */,
 				DC23E9B51E8CF059003D86AD /* UIViewController+Schema.h */,
 				DC23E9B61E8CF059003D86AD /* UIViewController+Schema.m */,
 				DC23E9B31E8CF059003D86AD /* UIAlertController+Schema.h */,
@@ -281,7 +281,7 @@
 				DC23E9CA1E8CF059003D86AD /* Main.storyboard in Resources */,
 				DC23E9D71E8CF059003D86AD /* LaunchScreen.strings in Resources */,
 				DC23E9C81E8CF059003D86AD /* Assets.xcassets in Resources */,
-				DC23E9CC1E8CF059003D86AD /* AXResponderSchemaManager.bundle in Resources */,
+				DC23E9CC1E8CF059003D86AD /* AXResponderSchemaKit.bundle in Resources */,
 				DC23E9D81E8CF059003D86AD /* Main.strings in Resources */,
 				DC23E9D01E8CF059003D86AD /* Info.plist in Resources */,
 				DC23E9C91E8CF059003D86AD /* LaunchScreen.storyboard in Resources */,
