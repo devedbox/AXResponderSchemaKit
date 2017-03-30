@@ -96,15 +96,28 @@ static NSArray *subclasses;
 }
 
 + (Class)classForSchemaIdentifier:(NSString *)schemaIdentifier {
+    Class matchedCls = NULL;
     for (Class cls in subclasses) {
         Class superClass = class_getSuperclass(cls);
         if (superClass == self.class) {
             Class _cls = [cls classForSchemaIdentifier:schemaIdentifier];
             if (_cls != NULL) {
-                return _cls;
+                matchedCls = _cls;
+                break;
             }
         }
     }
+    
+    if (matchedCls != NULL) {
+        NSMutableArray *classes = [subclasses mutableCopy];
+        [classes removeObject:matchedCls];
+        // Move the matchd calss to the top of the classes.
+        [classes insertObject:matchedCls atIndex:0];
+        subclasses = [classes copy];
+        
+        return matchedCls;
+    }
+    
     if ([[NSPredicate predicateWithFormat:@"SELF MATCHES[cd] %@", NSStringFromClass(self.class)] evaluateWithObject:schemaIdentifier]) {
         return self.class;
     }
