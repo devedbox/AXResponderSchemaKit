@@ -27,7 +27,7 @@
 #import "AXResponderSchemaManager.h"
 #import <objc/runtime.h>
 
-static NSArray *subclasses;
+static NSArray<Class> *subclasses;
 
 @implementation UIViewController (Schema)
 
@@ -44,37 +44,39 @@ static NSArray *subclasses;
 }
 
 + (void)load {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        [self ax_exchangeInstanceOriginalMethod:@selector(viewDidAppear:) swizzledMethod:@selector(ax_viewDidAppear:)];
-    });
-    // Get all sub classes.
-    // Classes buffer.
-    Class *classes;
-    // Get the count of all class.
-    int count = objc_getClassList(NULL, 0);
-    
-    NSMutableArray *subclses = [NSMutableArray array];
-    
-    if (count > 0) {
-        classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * count);
-        count = objc_getClassList(classes, count);
-        for (int i = 0; i < count; i ++) {
-            @autoreleasepool {
-                Class cls = classes[i];
-                Class superClass = cls;
-                while (superClass!=NULL && !class_isMetaClass(superClass)) {
-                    superClass = class_getSuperclass(superClass);
-                    if (superClass == UIViewController.class) {
-                        [subclses addObject:cls];
-                        superClass = NULL;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        static dispatch_once_t __schema_once_token;
+        dispatch_once(&__schema_once_token, ^{
+            [self ax_exchangeInstanceOriginalMethod:@selector(viewDidAppear:) swizzledMethod:@selector(ax_viewDidAppear:)];
+        });
+        // Get all sub classes.
+        // Classes buffer.
+        Class *classes;
+        // Get the count of all class.
+        int count = objc_getClassList(NULL, 0);
+        
+        NSMutableArray *subclses = [NSMutableArray array];
+        
+        if (count > 0) {
+            classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * count);
+            count = objc_getClassList(classes, count);
+            for (int i = 0; i < count; i ++) {
+                @autoreleasepool {
+                    Class cls = classes[i];
+                    Class superClass = cls;
+                    while (superClass!=NULL && !class_isMetaClass(superClass)) {
+                        superClass = class_getSuperclass(superClass);
+                        if (superClass == UIViewController.class) {
+                            [subclses addObject:cls];
+                            superClass = NULL;
+                        }
                     }
                 }
             }
+            subclasses = [subclses copy];
+            free(classes);
         }
-        subclasses = [subclses copy];
-        free(classes);
-    }
+    });
 }
 
 + (instancetype)viewControllerForSchemaWithParams:(NSDictionary **)params {
