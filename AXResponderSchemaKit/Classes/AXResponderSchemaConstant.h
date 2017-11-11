@@ -28,9 +28,16 @@
 
 #import "AXResponderSchemaManager.h"
 
+static inline NSString *_LocalizedString(NSString *key, NSString *comment) {
+    NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle bundleForClass:[AXResponderSchemaManager class]].resourcePath stringByAppendingPathComponent:@"AXResponderSchemaKit.bundle"]];
+    if (!bundle) return comment;
+    if (!bundle.loaded) [bundle load];
+    return [bundle localizedStringForKey:key value:comment table:@"AXResponderSchemaManager"];
+}
+
 #ifndef AXResponderSchemaManagerLocalizedString
 #define AXResponderSchemaManagerLocalizedString(key, comment) \
-NSLocalizedStringFromTableInBundle(key, @"AXResponderSchemaManager", [NSBundle bundleWithPath:[[[NSBundle bundleForClass:[AXResponderSchemaManager class]] resourcePath] stringByAppendingPathComponent:@"AXResponderSchemaManager.bundle"]], comment)
+        _LocalizedString(key, comment)
 #endif
 
 #endif /* AXResponderSchemaConstant_h */
